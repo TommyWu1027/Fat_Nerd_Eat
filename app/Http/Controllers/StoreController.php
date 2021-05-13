@@ -35,8 +35,7 @@ class StoreController extends Controller
      */
     public function storePost(Request $request)
     {
-        
-        //
+       //
     }
 
     public function addstore(Request $request)

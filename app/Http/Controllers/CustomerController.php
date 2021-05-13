@@ -17,6 +17,12 @@ class CustomerController extends Controller
         //
     }
 
+    public function add_customer()
+    {
+        //
+        return view('add_customer');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

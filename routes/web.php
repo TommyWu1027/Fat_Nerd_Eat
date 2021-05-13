@@ -24,4 +24,8 @@ Route::post('/storePost', 'StoreController@storePost')->name('storePost');
 
 // deliver
 Route::get('/adddeliver', 'DeliverController@add_deliver')->name('adddeliver');
-Route::post('/deliverPost', 'StoreController@deliverPost')->name('deliverPost');
+Route::post('/deliverPost', 'DeliverController@deliverPost')->name('deliverPost');
+
+// customer
+Route::get('/addcustomer', 'CustomerController@add_customer')->name('addcustomer');
+Route::post('/customerPost', 'CustomerController@customerPost')->name('customerPost');

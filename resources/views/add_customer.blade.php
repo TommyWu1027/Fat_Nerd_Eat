@@ -5,18 +5,27 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Add deliver</div>
+                <div class="card-header">addcustomer</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('deliverPost') }}">
+                    <form method="POST" action="{{ route('customerPost') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Nickname</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Customer name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control " name="name"  required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" required  autofocus>
+                            </div>
+                        </div>
 
+                        <div class="form-group row">
+                            <label for="address" class="col-md-4 col-form-label text-md-right">Customer address</label>
+
+                            <div class="col-md-6">
+                                <input id="address" type="text" class="form-control " name="address" required>
+
+                                
                             </div>
                         </div>
 
