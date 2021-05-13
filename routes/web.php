@@ -18,3 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// store
+Route::get('/addstore', 'StoreController@addstore')->name('addstore');
+Route::post('/storePost', 'StoreController@storePost')->name('storePost');
+
+// deliver
+Route::get('/adddeliver', 'DeliverController@add_deliver')->name('adddeliver');
+Route::post('/deliverPost', 'StoreController@deliverPost')->name('deliverPost');

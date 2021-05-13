@@ -17,6 +17,12 @@ class DeliverController extends Controller
         //
     }
 
+    public function add_deliver()
+    {
+        //
+        return view('add_deliver');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

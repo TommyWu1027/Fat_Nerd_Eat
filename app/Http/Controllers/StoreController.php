@@ -33,11 +33,19 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storePost(Request $request)
     {
+        
         //
     }
 
+    public function addstore(Request $request)
+    {
+        //
+        return view('add_store');
+    }
+
+    
     /**
      * Display the specified resource.
      *
