@@ -36,19 +36,75 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function dishPost(Request $request)
+    public function dishPost_add(Request $request)
+    {   
+        // 前端選擇的店家的舊菜單
+        $storeId = DB::table('users')->where('id', (int)($request->id))->get('type_id');
+        $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
+        // return $oldmenu[0]->dish;
+        // 新增菜色
+        if($oldmenu[0]->dish != NULL){
+            $json_arr = json_decode($oldmenu, true);
+            $json_arr[] = array('dishName' => $request->dishName, 'dishPrice' => $request->dishPrice);
+        }
+        else $json_arr[] = array('dishName' => $request->dishName, 'dishPrice' => $request->dishPrice);
+
+        // 回傳至資料庫
+        $newmenu = json_encode($json_arr);
+        DB::table('stores')
+        ->where('id', $storeId[0]->type_id)
+        ->update(['dish' => $newmenu]);
+        $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
+        return $oldmenu;
+    }
+
+    public function dishPost_update(Request $request)
     {   
         // 前端選擇的店家的舊菜單
         $storeId=DB::table('users')->where('id', $request->id)->get('type_id');
-        $originDish=DB::table('stores')->where('id', $storeId)->get('dish');
+        $oldmenu=DB::table('stores')->where('id', $storeId)->get('dish');
 
-        // 舊菜單+新菜單
-        
+        // 更新價錢
+        $json_arr = json_decode($oldmenu, true);
+        foreach ($json_arr as $key => $value) {
+            if ($value['dishName'] == $request->dishName) {
+                $json_arr[$key]['dishPrice'] = $request->dishPrice;
+            }
+        }
+        // 回傳至資料庫
+        $newmenu = json_encode($json_arr);
+        DB::table('stores')
+        ->where('id', $storeId)
+        ->update(['dish' => $newmenu]);
+    }
+
+    public function dishPost_delete(Request $request)
+    {   
+        // 前端選擇的店家的舊菜單
+        $storeId=DB::table('users')->where('id', $request->id)->get('type_id');
+        $oldmenu=DB::table('stores')->where('id', $storeId)->get('dish');
+
+        // 刪除菜色
+        $json_arr = json_decode($oldmenu, true);
+        $arr_index = array();
+        foreach ($json_arr as $key => $value)
+        {
+            if ($value['dishName'] == $request->dishName)
+            {
+                $arr_index[] = $key;
+            }
+        }
+        foreach ($arr_index as $i)
+        {
+            unset($json_arr[$i]);
+        }
+        $json_arr = array_values($json_arr);
 
         // 回傳至資料庫
+        $newmenu = json_encode($json_arr);
         DB::table('stores')
-        ->where('id', $request->id)
-        ->update(['dish' => ]);
+        ->where('id', $storeId)
+        ->update(['dish' => $newmenu]);
     }
 
     public function storePost(Request $request)
@@ -66,6 +122,11 @@ class StoreController extends Controller
         return view('add_store');
     }
 
+    public function dishPost(Request $request)
+    {
+        //
+        return view('update_dish');
+    }
     
     /**
      * Display the specified resource.

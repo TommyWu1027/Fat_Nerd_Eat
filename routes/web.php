@@ -22,7 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/addstore', 'StoreController@addstore')->name('addstore');
 Route::post('/storePost', 'StoreController@storePost')->name('storePost');
 Route::get('/storelist', "StoreController@index");
-Route::post('/dishPost', 'StoreController@dishPost')->name('dishPost');
+Route::get('/dishPost', 'StoreController@dishPost')->name('dishPost');
+Route::post('/dishPost_add', 'StoreController@dishPost_add')->name('dishPost_add');
 
 // deliver
 Route::get('/adddeliver', 'DeliverController@add_deliver')->name('adddeliver');
