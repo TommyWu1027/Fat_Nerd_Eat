@@ -17,9 +17,18 @@ class CustomerController extends Controller
         //
     }
 
+    public function customerPost(Request $request)
+    {
+        $customer = Customer::create([
+            'name' => $request['name'],
+            'address' => $request['address'],
+        ]);
+    }
+
     public function add_customer()
     {
         //
+
         return view('add_customer');
     }
 

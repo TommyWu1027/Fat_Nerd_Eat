@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StoreController extends Controller
 {
@@ -14,7 +15,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        $posts=DB::table('stores')->get();
+        return view('storelist', ['storename' => $posts]);
     }
 
     /**
@@ -33,9 +35,29 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function dishPost(Request $request)
+    {   
+        // 前端選擇的店家的舊菜單
+        $storeId=DB::table('users')->where('id', $request->id)->get('type_id');
+        $originDish=DB::table('stores')->where('id', $storeId)->get('dish');
+
+        // 舊菜單+新菜單
+        
+
+        // 回傳至資料庫
+        DB::table('stores')
+        ->where('id', $request->id)
+        ->update(['dish' => ]);
+    }
+
     public function storePost(Request $request)
     {
-       //
+        $store = Store::create([
+            'name' => $request['name'],
+            'dish' => $request['dish'],
+            'address' => $request['address'],
+        ]);
     }
 
     public function addstore(Request $request)

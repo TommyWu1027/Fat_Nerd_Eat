@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 // store
 Route::get('/addstore', 'StoreController@addstore')->name('addstore');
 Route::post('/storePost', 'StoreController@storePost')->name('storePost');
+Route::get('/storelist', "StoreController@index");
+Route::post('/dishPost', 'StoreController@dishPost')->name('dishPost');
 
 // deliver
 Route::get('/adddeliver', 'DeliverController@add_deliver')->name('adddeliver');

@@ -17,6 +17,14 @@ class DeliverController extends Controller
         //
     }
 
+    public function deliverPost(Request $request)
+    {
+        $customer = Deliver::create([
+            'name' => $request['name'],
+            'status' => 'offline',
+        ]);
+    }
+
     public function add_deliver()
     {
         //
