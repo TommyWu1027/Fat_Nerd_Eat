@@ -5,21 +5,18 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Update dish</div>
+                <div class="card-header">Add dish</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('dishPost_update') }}">
+                    <form method="POST" action="{{ route('dishPost_add') }}">
                         @csrf
 
                         <div class="form-group row">
                             <label for="dishname" class="col-md-4 col-form-label text-md-right">Dishname</label>
 
                             <div class="col-md-6">
-                                <select id="dishname" type="text" class="form-control " name="dishName"  required autofocus>
-                                    @foreach($dishName as $dish)
-                                        <option value="{{$dish['dishName']}}">{{$dish['dishName']}}</option>
-                                    @endforeach
-                                </select>
+                                <input id="dishname" type="text" class="form-control " name="dishName"  required autofocus>
+
                             </div>
                         </div>
 

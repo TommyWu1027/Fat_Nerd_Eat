@@ -15,9 +15,9 @@
                     @endif
 
                     @foreach ($storename as $store)
-                    <p>{{ $store->name }}</p>
-                    <p>{{ $store->address }}</p>
-                    <p>{{ $store->dish }}</p>
+                        <p>{{ $store->name }}</p>
+                        <p>{{ $store->address }}</p>
+                        <p>{{ $store->dish }}</p>
                     @endforeach
                 </div>
             </div>
