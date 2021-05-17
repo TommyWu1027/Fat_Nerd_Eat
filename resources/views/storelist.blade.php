@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Store</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,12 +13,15 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    @foreach ($storename as $store)
-                        <p>{{ $store->name }}</p>
-                        <p>{{ $store->address }}</p>
-                        <p>{{ $store->dish }}</p>
+                    
+                    
+                    @foreach($storename as $name)
+                        <p>{{ $name->name }}</p>
                     @endforeach
+                        
+
+
+                    
                 </div>
             </div>
         </div>

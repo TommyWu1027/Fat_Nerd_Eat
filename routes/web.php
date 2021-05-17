@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // store
 Route::get('/addstore', 'StoreController@addstore')->name('addstore');
 Route::post('/storePost', 'StoreController@storePost')->name('storePost');
-Route::get('/storelist', "StoreController@index");
+Route::get('/storeinfo', "StoreController@index");
 //// add dish
 Route::post('/dishPost_add', 'StoreController@dishPost_add')->name('dishPost_add');
 Route::get('/dish_add', ['middleware' => 'auth', 'uses' => 'StoreController@dish_add'])-> name('dish_add');

@@ -16,9 +16,10 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $posts=DB::table('stores')->get();
-        // return gettype($posts[0]->id);
-        return view('storelist', ['storename' => $posts]);
+        $name=DB::table('stores')->get('name');
+        // return $name;
+        
+        return view('storelist', ['storename' => $name]);
     }
 
     /**
@@ -43,6 +44,7 @@ class StoreController extends Controller
         // 前端選擇的店家的舊菜單
         $storeId = DB::table('users')->where('id', (int)($request->id))->get('type_id');
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
+
         // $json_arr = json_decode($oldmenu[0]->dish, true);
         // return $json_arr[0]['dishName'];
         // 新增菜色
