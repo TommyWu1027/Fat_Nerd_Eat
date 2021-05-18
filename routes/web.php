@@ -18,6 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//======================================================================
+
 // store
 Route::get('/addstore', 'StoreController@addstore')->name('addstore');
 Route::post('/storePost', 'StoreController@storePost')->name('storePost');
@@ -31,11 +34,25 @@ Route::get('/dish_update', ['middleware' => 'auth', 'uses' => 'StoreController@d
 //// delete dish
 Route::post('/dishPost_delete', 'StoreController@dishPost_delete')->name('dishPost_delete');
 Route::get('/dish_delete', ['middleware' => 'auth', 'uses' => 'StoreController@dish_delete'])-> name('dish_delete');
+//// order menu
+Route::get('/menu/{storeid}', "StoreController@menu");
+
+//======================================================================
 
 // deliver
 Route::get('/adddeliver', 'DeliverController@add_deliver')->name('adddeliver');
 Route::post('/deliverPost', 'DeliverController@deliverPost')->name('deliverPost');
 
+
+//======================================================================
+
+
 // customer
 Route::get('/addcustomer', 'CustomerController@add_customer')->name('addcustomer');
 Route::post('/customerPost', 'CustomerController@customerPost')->name('customerPost');
+
+
+//======================================================================
+
+//order
+// Route::post('/', 'CustomerController@')->name('');

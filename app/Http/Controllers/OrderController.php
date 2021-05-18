@@ -16,15 +16,17 @@ class OrderController extends Controller
     {
         //
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $order = Order::create([
+            'store' => $request['store'],
+            'customer' => $request['customer'],
+        ]);
     }
 
     /**

@@ -8,15 +8,11 @@
                 <div class="card-header">Store</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+
                     
                     
-                    @foreach($storename as $name)
-                        <p>{{ $name->name }}</p>
+                    @foreach($storeInfo as $store)
+                        <input type ="button" onclick="javascript:location.href='http://127.0.0.1:8000/menu/{{ $store->id }}'" value="{{ $store->name }} {{ $store->address }}"></input>
                     @endforeach
                         
 

@@ -16,10 +16,19 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $name=DB::table('stores')->get('name');
+        $storeInfo=DB::table('stores')->get();
         // return $name;
         
-        return view('storelist', ['storename' => $name]);
+        return view('storelist', ['storeInfo' => $storeInfo]);
+    }
+
+    public function menu(Request $request)
+    {
+        $storeId = $request->route('storeid');
+        $menu = DB::table('stores')->where('id', $storeId)->get('dish');
+        $json_arr = json_decode($menu[0]->dish, true);
+
+        return view('menu', ["menu" => $json_arr, "storeid" => $storeId]);
     }
 
     /**
