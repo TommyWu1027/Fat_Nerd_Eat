@@ -129,7 +129,8 @@
 
 <script>
     $(document).ready(function(){
-        $('#type').change(function() {
+        var typing = document.getElementById("type");
+        typing.addEventListener('change', (event) => {
             var type = document.getElementById("type").value;
             if(type=="Customer"){
             document.getElementById("changing").innerHTML =`
@@ -176,7 +177,7 @@
                             </div>`;}
             else if(type=="Deliver"){
             document.getElementById("changing").innerHTML=``;}
-    })}
+        })}
     )
 </script>
 
