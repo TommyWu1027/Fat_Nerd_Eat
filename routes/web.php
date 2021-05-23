@@ -36,6 +36,7 @@ Route::post('/dishPost_delete', 'StoreController@dishPost_delete')->name('dishPo
 Route::get('/dish_delete', ['middleware' => 'auth', 'uses' => 'StoreController@dish_delete'])-> name('dish_delete');
 //// order menu
 Route::get('/menu/{storeid}', "StoreController@menu");
+Route::post('/orderPost_add', 'OrderController@orderPost_add')->name('orderPost_add');
 
 //======================================================================
 

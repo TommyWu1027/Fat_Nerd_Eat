@@ -17,14 +17,15 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('store')->nullable();
             $table->unsignedBigInteger('customer')->nullable();
+            $table->string('destination')->nullable();
             $table->unsignedBigInteger('deliver')->nullable();
-            $table->integer('time');
-            $table->string('content');
-            $table->string('status');
+            $table->integer('time')->nullable();
+            $table->json('content')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
-            $table->foreign('store')->references('id')->on('stores');
-            $table->foreign('customer')->references('id')->on('customers');
-            $table->foreign('deliver')->references('id')->on('delivers');
+            // $table->foreign('store')->references('id')->on('stores');
+            // $table->foreign('customer')->references('id')->on('customers');
+            // $table->foreign('deliver')->references('id')->on('delivers');
         });
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -21,11 +22,25 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
+    public function orderPost_add(Request $request)
+    {   
+        // return $request;
+        $menu = DB::table('stores')->where('id', (int)($request->storeid))->get('dish');
+        // return $menu;
+        $menu_arr = json_decode($menu[0]->dish, true);
+        // return $menu_arr[1]["dishName"];
+        // return $menu_arr;
+        for($i = 0 ; $i < count($menu_arr) ; $i++){
+            $dish = str_replace(' ', '_', $menu_arr[$i]["dishName"]);
+            if($request[$dish] != NULL){
+                $content_arr[] = array('dishName' => $dish, 'quantity' => $request[$dish]);
+            }
+        }
+        $content = json_encode($content_arr);
         $order = Order::create([
-            'store' => $request['store'],
-            'customer' => $request['customer'],
+            'store' => $request['storeid'],
+            'customer' => $request['id'],
+            'content' => $content,
         ]);
     }
 
