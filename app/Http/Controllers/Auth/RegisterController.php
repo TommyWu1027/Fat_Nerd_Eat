@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
+use App\Customer;
+use App\Deliver;
+use App\Store;
 
 class RegisterController extends Controller
 {
@@ -65,12 +69,42 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        if ($data['type']=="Customer") {
+
+            $Customer = Customer::create([
+                'name' => $data['name'],
+                'address' => $data['address'],
+            ]);
+            $typeId = $Customer->id;
+
+        }
+        else if ($data['type']=="Store") {
+
+            $Store = Store::create([
+                'name' => $data['storeName'],
+                'address' => $data['address'],
+            ]);
+            $typeId = $Store->id;
+
+        }
+        else if ($data['type']=="Deliver") {
+
+            $Deliver = Deliver::create([
+                'name' => $data['name'],
+            ]);
+            $typeId = $Deliver->id;
+
+        }
+
+        $userCreate = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'type' => $data['type'],
             'phone' => $data['phone'],
+            'type_id' => $typeId ,
             'password' => Hash::make($data['password']),
         ]);
+        
+        return $userCreate;
     }
 }

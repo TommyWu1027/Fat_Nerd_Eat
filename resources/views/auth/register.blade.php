@@ -44,9 +44,9 @@
 
                             <div class="col-md-6">
                                 <select id="type" type="text" class="form-control @error('type') is-invalid @enderror" name="type" value="{{ old('type') }}" required autocomplete="type" autofocus>
-                                    <option value="customer">customer</option>
-                                    <option value="store">store</option>
-                                    <option value="deliver">deliver</option>
+                                    <option value="Customer">Customer</option>
+                                    <option value="Store">Store</option>
+                                    <option value="Deliver">Deliver</option>
                                 </select>
                                 @error('type')
                                     <span class="invalid-feedback" role="alert">
@@ -67,6 +67,22 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+
+                        <div id="changing">
+                            <div class="form-group row">
+                                <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Common Address') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
+                                    
+                                    @error('address')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 
@@ -105,4 +121,63 @@
         </div>
     </div>
 </div>
+
+
+@endsection
+
+@section('script')
+
+<script>
+    $(document).ready(function(){
+        $('#type').change(function() {
+            var type = document.getElementById("type").value;
+            if(type=="Customer"){
+            document.getElementById("changing").innerHTML =`
+                            <div class="form-group row">
+                                <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Common Address') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
+                                    
+                                    @error('address')
+                                       <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>`;}
+            else if(type=="Store"){
+            document.getElementById("changing").innerHTML=`
+                            <div class="form-group row">
+                                <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Store Address') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
+                                    
+                                    @error('address')
+                                       <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="storeName" class="col-md-4 col-form-label text-md-right">{{ __('Store Name') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="storeName" type="text" class="form-control @error('storeName') is-invalid @enderror" name="storeName" value="{{ old('storeName') }}" required >
+                                    
+                                    @error('storeName')
+                                       <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>`;}
+            else if(type=="Deliver"){
+            document.getElementById("changing").innerHTML=``;}
+    })}
+    )
+</script>
+
 @endsection
