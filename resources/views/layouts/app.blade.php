@@ -15,7 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     
 
     <!-- Styles -->
@@ -78,5 +78,9 @@
             @yield('content')
         </main>
     </div>
+    @yield('script')
+    
 </body>
+
+
 </html>
