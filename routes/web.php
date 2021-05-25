@@ -57,4 +57,4 @@ Route::post('/customerPost', 'CustomerController@customerPost')->name('customerP
 //======================================================================
 
 //order
-// Route::post('/', 'CustomerController@')->name('');
+Route::get('/orderList_Deliver', 'OrderController@orderList_Deliver')->name('orderList_Deliver');

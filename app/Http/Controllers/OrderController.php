@@ -17,6 +17,8 @@ class OrderController extends Controller
     {
         //
     }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -37,11 +39,24 @@ class OrderController extends Controller
             }
         }
         $content = json_encode($content_arr);
+        // return $content;
+        $customer_Id = DB::table('users')->where('id',(int)($request->id))->get('type_id');
+        $address = DB::table('customers')->where('id',$customer_Id[0]->type_id)->get('address');
+        // return gettype($address[0]->address);
         $order = Order::create([
             'store' => $request['storeid'],
             'customer' => $request['id'],
             'content' => $content,
+            'destination' => $address[0]->address,
         ]);
+
+    }
+
+
+    public function orderList_Deliver()
+    {
+        $orderList = DB::table('orders')->get();
+        return view('orderList_D', ['orderList' => $orderList]);
     }
 
     /**
