@@ -31,6 +31,15 @@ class StoreController extends Controller
         return view('menu', ["menu" => $json_arr, "storeid" => $storeId]);
     }
 
+    public function myDish(Request $request)
+    {
+        $storeId = Auth::user()->type_id;
+        $menu = DB::table('stores')->where('id', $storeId)->get('dish');
+        $json_arr = json_decode($menu[0]->dish, true);
+
+        return view('myDish', ["menu" => $json_arr, "storeid" => $storeId]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -67,7 +76,13 @@ class StoreController extends Controller
         ->where('id', $storeId[0]->type_id)
         ->update(['dish' => $newmenu]);
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
-        return $oldmenu;
+
+        $storeId = Auth::user()->type_id;
+        $menu = DB::table('stores')->where('id', $storeId)->get('dish');
+        $json_arr = json_decode($menu[0]->dish, true);
+
+        return view('myDish', ["menu" => $json_arr, "storeid" => $storeId]);
+        // return $oldmenu;
     }
 
     public function dishPost_update(Request $request)
@@ -91,6 +106,12 @@ class StoreController extends Controller
         ->where('id', $storeId[0]->type_id)
         ->update(['dish' => $newmenu]);
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
+
+        $storeId = Auth::user()->type_id;
+        $menu = DB::table('stores')->where('id', $storeId)->get('dish');
+        $json_arr = json_decode($menu[0]->dish, true);
+
+        return view('myDish', ["menu" => $json_arr, "storeid" => $storeId]);
         return $oldmenu;
     }
 
@@ -122,6 +143,12 @@ class StoreController extends Controller
         ->where('id', $storeId[0]->type_id)
         ->update(['dish' => $newmenu]);
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
+
+        $storeId = Auth::user()->type_id;
+        $menu = DB::table('stores')->where('id', $storeId)->get('dish');
+        $json_arr = json_decode($menu[0]->dish, true);
+
+        return view('myDish', ["menu" => $json_arr, "storeid" => $storeId]);
         return $oldmenu;
     }
 
@@ -143,6 +170,7 @@ class StoreController extends Controller
     public function dish_add()
     {
         //
+        
         return view('add_dish');
     }
 

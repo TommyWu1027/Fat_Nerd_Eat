@@ -37,7 +37,8 @@ Route::get('/dish_delete', ['middleware' => 'auth', 'uses' => 'StoreController@d
 //// order menu
 Route::get('/menu/{storeid}', "StoreController@menu");
 Route::post('/orderPost_add', 'OrderController@orderPost_add')->name('orderPost_add');
-
+//// Mydish
+Route::get('/myDish', "StoreController@myDish")->name('myDish');;
 //======================================================================
 
 // deliver
