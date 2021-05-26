@@ -6,6 +6,7 @@ use App\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class StoreController extends Controller
 {
@@ -77,11 +78,14 @@ class StoreController extends Controller
         ->update(['dish' => $newmenu]);
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
-        $storeId = Auth::user()->type_id;
-        $menu = DB::table('stores')->where('id', $storeId)->get('dish');
-        $json_arr = json_decode($menu[0]->dish, true);
+        //儲存上傳的圖片
+        if (request()->hasFile('image'))
+        {
+        $imageURL = request()->file('image')->store('public');
+        }dddd
 
-        return view('myDish', ["menu" => $json_arr, "storeid" => $storeId]);
+        return $imageURL;
+        return redirect()->route('myDish');
         // return $oldmenu;
     }
 
@@ -107,19 +111,15 @@ class StoreController extends Controller
         ->update(['dish' => $newmenu]);
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
-        $storeId = Auth::user()->type_id;
-        $menu = DB::table('stores')->where('id', $storeId)->get('dish');
-        $json_arr = json_decode($menu[0]->dish, true);
-
-        return view('myDish', ["menu" => $json_arr, "storeid" => $storeId]);
+        return redirect()->route('myDish');
         return $oldmenu;
     }
 
     public function dishPost_delete(Request $request)
     {   
         // 前端選擇的店家的舊菜單
-        $storeId = DB::table('users')->where('id', (int)($request->id))->get('type_id');
-        $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
+        $storeId = DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id');
+        $oldmenu = DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
         // 刪除菜色
         $json_arr = json_decode($oldmenu[0]->dish, true);
@@ -144,11 +144,7 @@ class StoreController extends Controller
         ->update(['dish' => $newmenu]);
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
-        $storeId = Auth::user()->type_id;
-        $menu = DB::table('stores')->where('id', $storeId)->get('dish');
-        $json_arr = json_decode($menu[0]->dish, true);
-
-        return view('myDish', ["menu" => $json_arr, "storeid" => $storeId]);
+        return redirect()->route('myDish');
         return $oldmenu;
     }
 

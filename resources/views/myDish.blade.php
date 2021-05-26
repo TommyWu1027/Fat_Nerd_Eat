@@ -35,7 +35,12 @@
                                             <button type="submit" class="btn btn-success" onclick="location.href='{{ route('dish_update') }}'" >Update</button>
                                         </td>
                                         <td>
-                                            <button type="submit" class="btn btn-danger" onclick="location.href='{{ route('dish_delete') }}'" >Delete</button>
+                                            <form method="POST" action="{{ route('dishPost_delete') }}">
+                                                @csrf
+                                                <input id="dishName" type="text" class="form-control " name="dishName"  hidden="hidden" value="{{$dish['dishName']}}" >
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+
+                                            </form>
                                         </td>
                                         </tr>
                                         

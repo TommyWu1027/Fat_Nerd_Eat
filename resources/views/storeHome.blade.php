@@ -86,9 +86,6 @@
 
                 <div class="links">
                     <a href="{{ route('myDish') }}">My_Dish</a>
-                    <a href="{{ route('dish_add') }}">Add_Dish</a>
-                    <a href="{{ route('dish_update') }}">Update_Dish</a>
-                    <a href="{{ route('dish_delete') }}">Delete_Dish</a>
                     <a href="">My_Order</a>
                 </div>
             </div>
