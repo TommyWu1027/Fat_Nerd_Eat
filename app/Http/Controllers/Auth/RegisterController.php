@@ -68,7 +68,7 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {   
         if ($data['type']=="Customer") {
 
             $Customer = Customer::create([

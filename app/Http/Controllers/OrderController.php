@@ -42,12 +42,13 @@ class OrderController extends Controller
         // return $content;
         $customer_Id = DB::table('users')->where('id',(int)($request->id))->get('type_id');
         $address = DB::table('customers')->where('id',$customer_Id[0]->type_id)->get('address');
-        // return gettype($address[0]->address);
+        $destination = $address[0]->address;
+        // return $destination;
         $order = Order::create([
             'store' => $request['storeid'],
             'customer' => $request['id'],
+            'destination' => $destination,
             'content' => $content,
-            'destination' => $address[0]->address,
         ]);
 
     }

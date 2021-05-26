@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('store')->nullable();
             $table->unsignedBigInteger('customer')->nullable();
-            $table->string('destination')->nullable();
+            $table->string('destination');
             $table->unsignedBigInteger('deliver')->nullable();
             $table->integer('time')->nullable();
             $table->json('content')->nullable();
