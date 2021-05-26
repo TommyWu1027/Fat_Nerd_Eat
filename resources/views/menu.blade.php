@@ -40,6 +40,7 @@
                                     </tbody>
                                 </table>
                         </div>
+                    
                         <input id="id" type="text" class="form-control " name="id"  hidden="hidden" value="{{ Auth::user()->id }}">
                         <input id="storeid" type="text" class="form-control " name="storeid"  hidden="hidden" value="{{ $storeid }}">
 
