@@ -59,10 +59,18 @@ class StoreController extends Controller
      */
 
     public function dishPost_add(Request $request)
-    {   
+    {       
+        
+        
+
+      
         // 前端選擇的店家的舊菜單
         $storeId = DB::table('users')->where('id', (int)($request->id))->get('type_id');
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
+
+        $file_path ='storage/'.$storeId[0]->type_id;
+        
+  
         // $json_arr = json_decode($oldmenu[0]->dish, true);
         // return $json_arr[0]['dishName'];
         // 新增菜色
@@ -79,13 +87,15 @@ class StoreController extends Controller
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
         //儲存上傳的圖片
-        // if (request()->hasFile('image'))
-        // {
-        // $imageURL = request()->file('image')->store('public');
-        // }dddd
-
-        // return $imageURL;
-        // return redirect()->route('myDish');
+        if (request()->hasFile('image'))
+        {
+            if(!file_exists($file_path)){
+                mkdir($file_path);}
+            $imageURL = request()->file('image')->storeAs('public/'.$storeId[0]->type_id, $request->dishName.'.jpg');
+        
+        }
+        
+        return redirect()->route('myDish');
         return $oldmenu;
     }
 
@@ -144,7 +154,7 @@ class StoreController extends Controller
         ->update(['dish' => $newmenu]);
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
-        // return redirect()->route('myDish');
+        return redirect()->route('myDish');
         return $oldmenu;
     }
 

@@ -8,7 +8,7 @@
                 <div class="card-header">Add dish</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('dishPost_add') }}">
+                    <form method="POST" action="{{ route('dishPost_add') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">

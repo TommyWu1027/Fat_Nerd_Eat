@@ -91,7 +91,7 @@ class RegisterController extends Controller
 
             $Deliver = Deliver::create([
                 'name' => $data['name'],
-                'status' => "Offline",
+                'status' => "Free",
             ]);
             $typeId = $Deliver->id;
 

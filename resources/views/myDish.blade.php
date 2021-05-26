@@ -12,7 +12,8 @@
 
                         <div class="form-group row">
 
-                            <div class="col-md-6" style="margin-left: auto;margin-right: auto;">
+                            <div class="col-md-6">
+                            
                                 <table class="table"  width="100%">
                                     <thead>
                                         <tr>
@@ -28,7 +29,7 @@
                                     @foreach($menu as $dish)
                                          
                                         <tr>
-                                        <th scope="row"></th>
+                                        <th scope="row"><img src="{{ URL::asset('storage/'.$storeid.'/'.$dish["dishName"].'.jpg') }}" id="img"/></th>
                                         <td>{{$dish['dishName']}}</td>
                                         <td>{{$dish['dishPrice']}}</td>
                                         <td>
