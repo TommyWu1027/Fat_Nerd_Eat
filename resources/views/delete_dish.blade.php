@@ -15,7 +15,7 @@
                             <label for="dishname" class="col-md-4 col-form-label text-md-right">Dishname</label>
 
                             <div class="col-md-6">
-                                <select id="dishname" type="text" class="form-control " name="dishName"  required autofocus>
+                                <select id="dishName" type="text" class="form-control " name="dishName"  required autofocus>
                                     @foreach($dishName as $dish)
                                         <option value="{{$dish['dishName']}}">{{$dish['dishName']}}</option>
                                     @endforeach
@@ -23,8 +23,7 @@
                             </div>
                         </div>
 
-                        
-                            <input id="id" type="text" class="form-control " name="id"  hidden="hidden" value="{{ Auth::user()->id }}">
+                    
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

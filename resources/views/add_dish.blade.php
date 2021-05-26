@@ -29,6 +29,15 @@
                             </div>
                         </div>
                         
+                        <div class="form-group row">
+                            <label for="image" class="col-md-4 col-form-label text-md-right">Image</label>
+
+                            <div class="col-md-6">
+                            <input accept="image/*, image/heic, image/heif" type="file" class="form-control-file" id="image" name="image">
+                            </div>
+                        </div>
+                        
+                        
                             <input id="id" type="text" class="form-control " name="id"  hidden="hidden" value="{{ Auth::user()->id }}">
 
                         <div class="form-group row mb-0">

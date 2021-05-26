@@ -11,16 +11,34 @@
                     <form method="POST" action="{{ route('orderPost_add') }}">
                         @csrf
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="margin-left: auto;margin-right: auto;">
 
-                            <div class="col-md-6">
+                        
+                            <table class="table"  width="100%">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
                                     @foreach($menu as $dish)
-                                        {{$dish['dishName']}} : {{$dish['dishPrice']}}
-                                        <input id="quantity" name="{{$dish['dishName']}}" type="number">
-                                        <br>
+                                         
+                                        <tr>
+                                        <th scope="row"></th>
+                                        <td>{{$dish['dishName']}}</td>
+                                        <td>{{$dish['dishPrice']}}</td>
+                                        <td>
+                                            <input id="quantity" name="{{$dish['dishName']}}" type="number" min="0" style="width: 40px;" >
+                                        </td>    
+                                        </tr>
+                                        
                                     @endforeach
-    
-                            </div>
+                                    </tbody>
+                                </table>
                         </div>
                     
                         <input id="id" type="text" class="form-control " name="id"  hidden="hidden" value="{{ Auth::user()->id }}">
