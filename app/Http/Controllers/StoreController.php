@@ -79,14 +79,14 @@ class StoreController extends Controller
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
         //儲存上傳的圖片
-        if (request()->hasFile('image'))
-        {
-        $imageURL = request()->file('image')->store('public');
-        }dddd
+        // if (request()->hasFile('image'))
+        // {
+        // $imageURL = request()->file('image')->store('public');
+        // }dddd
 
-        return $imageURL;
-        return redirect()->route('myDish');
-        // return $oldmenu;
+        // return $imageURL;
+        // return redirect()->route('myDish');
+        return $oldmenu;
     }
 
     public function dishPost_update(Request $request)
@@ -111,7 +111,7 @@ class StoreController extends Controller
         ->update(['dish' => $newmenu]);
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
-        return redirect()->route('myDish');
+        // return redirect()->route('myDish');
         return $oldmenu;
     }
 
@@ -144,7 +144,7 @@ class StoreController extends Controller
         ->update(['dish' => $newmenu]);
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
-        return redirect()->route('myDish');
+        // return redirect()->route('myDish');
         return $oldmenu;
     }
 

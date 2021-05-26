@@ -44,7 +44,7 @@ Route::get('/myDish',  ['middleware' => 'auth', 'uses' => "StoreController@myDis
 // deliver
 Route::get('/adddeliver', 'DeliverController@add_deliver')->name('adddeliver');
 Route::post('/deliverPost', 'DeliverController@deliverPost')->name('deliverPost');
-
+Route::post('/orderReceive', 'DeliverController@orderReceive')->name('orderReceive');
 
 //======================================================================
 
