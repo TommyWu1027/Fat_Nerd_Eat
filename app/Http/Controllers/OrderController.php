@@ -51,6 +51,17 @@ class OrderController extends Controller
         ]);
     }
 
+    public function changeStatus(Request $request)
+    {
+
+        return redirect()->route('orderDetail');
+    }
+
+    public function orderDetail()
+    {
+
+        return view('orderDetail', []);
+    }
 
     public function orderList_Deliver()
     {
@@ -58,11 +69,11 @@ class OrderController extends Controller
         return view('orderList_D', ['orderList' => $orderList]);
     }
 
-    public function orderList_Store()
-    {
-        $orderList = DB::table('orders')->get();
-        return view('orderList_D', ['orderList' => $orderList]);
-    }
+    // public function orderList_Store()
+    // {
+    //     $orderList = DB::table('orders')->get();
+    //     return view('orderList_D', ['orderList' => $orderList]);
+    // }
 
     /**
      * Store a newly created resource in storage.

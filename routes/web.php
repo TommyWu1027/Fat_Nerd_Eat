@@ -63,3 +63,6 @@ Route::post('/customerPost', 'CustomerController@customerPost')->name('customerP
 Route::post('/orderPost_add', 'OrderController@orderPost_add')->name('orderPost_add');
 Route::get('/orderList_Deliver', 'OrderController@orderList_Deliver')->name('orderList_Deliver');
 Route::get('/orderList_Store', 'OrderController@orderList_Store')->name('orderList_Store');
+Route::get('/orderDetail/{orderid}', 'OrderController@orderDetail')->name('orderDetail');
+Route::post('/changeStatus', 'OrderController@changeStatus')->name('changeStatus');
+
