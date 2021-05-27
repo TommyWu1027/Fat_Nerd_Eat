@@ -26,6 +26,7 @@ class HomeController extends Controller
     {
         if(Auth::user()->type=="Deliver")return redirect()->route('orderList_Deliver');
         if(Auth::user()->type=="Store")return redirect()->route('storeHome');
+        if(Auth::user()->type=="Customer")return redirect()->route('storeinfo');
         return view('home');
     }
 }

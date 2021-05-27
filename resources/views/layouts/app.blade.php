@@ -58,11 +58,24 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="{{ route('home') }}">{{ __('Home') }}</a>
+                                    
                                     @if (Auth::user()->type=="Store")
-                                        <a class="dropdown-item" href="{{ route('myDish') }}">{{ __('myDish') }}</a>
-                                        <a class="dropdown-item" href="{{ route('myOrderList') }}">{{ __('myOrder') }}</a>
+                                        <a class="dropdown-item" href="{{ route('home') }}">{{ __('Store Information') }}</a>
+                                        <a class="dropdown-item" href="{{ route('myDish') }}">{{ __('My Dish') }}</a>
+                                        
                                     @endif
+
+                                    @if (Auth::user()->type=="Deliver")
+                                        <a class="dropdown-item" href="{{ route('orderList_Deliver') }}">{{ __('Receive Order') }}</a>
+                                        
+                                    @endif
+
+                                    @if (Auth::user()->type=="Customer")
+                                        <a class="dropdown-item" href="{{ route('storeinfo') }}">{{ __('Store') }}</a>
+                                        
+                                    @endif
+                
+                                    <a class="dropdown-item" href="{{ route('myOrderList') }}">{{ __('My Order') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -74,6 +74,7 @@ class OrderController extends Controller
             'customer' => $request['id'],
             'destination' => $destination,
             'content' => $content,
+            'status' => 'catch me',
         ]);
     }
 
