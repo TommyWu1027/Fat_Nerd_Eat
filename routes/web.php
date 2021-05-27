@@ -22,6 +22,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 //======================================================================
 
 // store
+// store information
+Route::get('/storeHome', 'StoreController@storeHome')->name('storeHome');
+Route::post('/storeInfoPost', 'StoreController@storeInfoPost')->name('storeInfoPost');
+
 Route::get('/addstore', 'StoreController@addstore')->name('addstore');
 Route::post('/storePost', 'StoreController@storePost')->name('storePost');
 Route::get('/storeinfo',  ['middleware' => 'auth', 'uses' => "StoreController@index"]);
@@ -30,7 +34,7 @@ Route::post('/dishPost_add', 'StoreController@dishPost_add')->name('dishPost_add
 Route::get('/dish_add', ['middleware' => 'auth', 'uses' => 'StoreController@dish_add'])-> name('dish_add');
 //// update dish
 Route::post('/dishPost_update', 'StoreController@dishPost_update')->name('dishPost_update');
-Route::get('/dish_update', ['middleware' => 'auth', 'uses' => 'StoreController@dish_update'])-> name('dish_update');
+Route::get('/dish_update/{dishName}', ['middleware' => 'auth', 'uses' => 'StoreController@dish_update'])-> name('dish_update');
 //// delete dish
 Route::post('/dishPost_delete', 'StoreController@dishPost_delete')->name('dishPost_delete');
 Route::get('/dish_delete', ['middleware' => 'auth', 'uses' => 'StoreController@dish_delete'])-> name('dish_delete');

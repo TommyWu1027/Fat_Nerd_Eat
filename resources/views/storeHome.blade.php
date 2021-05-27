@@ -1,94 +1,74 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>FatNerdEat</title>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Store</div>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+                <div class="card-body">
+                    
+                                                
+                        <div class="form-group row">
+                            <label for="Image" class="col-md-4 col-form-label text-md-right">Original Image</label>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+                            <div class="col-md-6">
+                            
+                                <img src="{{ URL::asset('storage/'.$storeInfo->id.'/logo.jpg') }}" id="img"/>
+     
+                            </div>
+                        </div>
+                        <form method="POST" action="{{ route('storeInfoPost') }}" enctype="multipart/form-data">
+                                @csrf
 
-            .full-height {
-                height: 100vh;
-            }
+                        <div class="form-group row">
+                            <label for="storeName" class="col-md-4 col-form-label text-md-right">storeName</label>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+                            <div class="col-md-6">
+                                <input id="storeName" type="text" class="form-control " name="storeName"  value="{{ $storeInfo->name }}" required autofocus>
 
-            .position-ref {
-                position: relative;
-            }
+                            </div>
+                        </div>
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+                        <div class="form-group row">
+                            <label for="address" class="col-md-4 col-form-label text-md-right">address</label>
 
-            .content {
-                text-align: center;
-            }
+                            <div class="col-md-6">
+                                <input id="address" type="text" class="form-control " name="address"  value="{{ $storeInfo->address }}" required autofocus>
 
-            .title {
-                font-size: 84px;
-            }
+                            </div>
+                        </div>
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+                        <div class="form-group row">
+                            <label for="myDish" class="col-md-4 col-form-label text-md-right">myDish</label>
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+                            <div class="col-md-6">
+                                <input type ="button"  class="btn btn-success" onclick="javascript:location.href='{{ route('myDish') }}'" value="detail"></input>
+                            </div>
+                        </div>
+                        
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+                        <div class="form-group row">
+                            <label for="image" class="col-md-4 col-form-label text-md-right">Change Image</label>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Store
-                </div>
+                            <div class="col-md-6">
+                            <input accept="image/*, image/heic, image/heif" type="file" class="form-control-file" id="image" name="image">
+                            </div>
+                        </div>
+                
 
-                <div class="links">
-                    <a href="{{ route('myDish') }}">My_Dish</a>
-                    <a href="">My_Order</a>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary" >
+                                    modify
+                                </button>
+                            </div>
+                        </div>
+                    
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+</div>
+@endsection

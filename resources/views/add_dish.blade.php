@@ -36,9 +36,7 @@
                             <input accept="image/*, image/heic, image/heif" type="file" class="form-control-file" id="image" name="image">
                             </div>
                         </div>
-                        
-                        
-                            <input id="id" type="text" class="form-control " name="id"  hidden="hidden" value="{{ Auth::user()->id }}">
+                                          
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

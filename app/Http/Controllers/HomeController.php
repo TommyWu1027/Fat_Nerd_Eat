@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->type=="Store")return view('storeHome');
+        if(Auth::user()->type=="Store")return redirect()->route('storeHome');
         return view('home');
     }
 }
