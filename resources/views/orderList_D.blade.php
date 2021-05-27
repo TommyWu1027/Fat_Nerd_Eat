@@ -18,25 +18,27 @@
                                         <thead>
                                             <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">destination</th>
-                                            <th scope="col">content</th>
+                                            <th scope="col">Store</th>
+                                            <th scope="col">destination</th>                        
                                             <th scope="col">Receive</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
                                         @foreach($orderList as $order)
-                                            
+                                            @if ( $order->status=="catch me" )
                                             <tr>
-                                            <th scope="row"></th>
+                                            <th scope="row"><img src="{{ URL::asset('storage/'.$order->store.'/logo.jpg') }}" id="img"/></th>
+                                            <th scope="row">{{(DB::table('stores')->where('id', (int)($order->store ))->get('name'))[0]->name}}</th>
                                             <td>{{$order->destination}}</td>
-                                            <td>{{$order->content}}</td>
+                                            
                                             <td>
                                                 <button type="submit" class="btn btn-primary">
                                                     Receive
                                                 </button>
                                             </td>    
                                             </tr>
+                                            @endif
                                             
                                         @endforeach
                                         </tbody>

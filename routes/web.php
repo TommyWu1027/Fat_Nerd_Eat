@@ -38,7 +38,7 @@ Route::get('/dish_update/{dishName}', ['middleware' => 'auth', 'uses' => 'StoreC
 Route::post('/dishPost_delete', 'StoreController@dishPost_delete')->name('dishPost_delete');
 Route::get('/dish_delete', ['middleware' => 'auth', 'uses' => 'StoreController@dish_delete'])-> name('dish_delete');
 //// order menu
-Route::get('/storeinfo',  ['middleware' => 'auth', 'uses' => "StoreController@index"]);
+Route::get('/storeinfo',  ['middleware' => 'auth', 'uses' => "StoreController@index"])-> name('storeinfo');
 Route::get('/menu/{storeid}',  ['middleware' => 'auth', 'uses' => "StoreController@menu"]);
 //// Mydish
 Route::get('/myDish',  ['middleware' => 'auth', 'uses' => "StoreController@myDish"])->name('myDish');;
