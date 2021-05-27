@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                     
-                {{(DB::table('stores')->where('id', (int)($myOrder->store ))->get('name'))[0]->name}}
+                {{(DB::table('users')->where('id', (int)($order->deliver ))->get('name'))[0]->name}}
 
                         <form method="POST" action="{{ route('changeStatus') }}" enctype="multipart/form-data">
                                 @csrf
@@ -18,7 +18,7 @@
                             <label for="storeName" class="col-md-4 col-form-label text-md-right">Store Name</label>
 
                             <div class="col-md-6">
-                                <input id="storeName" type="text" class="form-control " name="storeName"  value="{{ $storeInfo->name }}" required autofocus>
+                                <input id="storeName" type="text" class="form-control " name="storeName"  value="{{(DB::table('stores')->where('id', (int)($order->store ))->get('name'))[0]->name}}" required autofocus>
 
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                             <label for="address" class="col-md-4 col-form-label text-md-right">Customer</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control " name="address"  value="{{ $storeInfo->address }}" required autofocus>
+                                <input id="Customer" type="text" class="form-control " name="Customer"  value="{{(DB::table('users')->where('id', (int)($order->customer ))->get('name'))[0]->name}}" required autofocus>
 
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                             <label for="storeName" class="col-md-4 col-form-label text-md-right">Destination</label>
 
                             <div class="col-md-6">
-                                <input id="storeName" type="text" class="form-control " name="storeName"  value="{{ $storeInfo->name }}" required autofocus>
+                                <input id="Destination" type="text" class="form-control " name="Destination"  value="{{ $order->destination }}" required autofocus>
 
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             <label for="storeName" class="col-md-4 col-form-label text-md-right">Deliver</label>
 
                             <div class="col-md-6">
-                                <input id="storeName" type="text" class="form-control " name="storeName"  value="{{ $storeInfo->name }}" required autofocus>
+                                <input id="storeName" type="text" class="form-control " name="storeName"  value="{{(DB::table('users')->where('id', (int)($order->deliver ))->get('name'))[0]->name}}" required autofocus>
 
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             <label for="storeName" class="col-md-4 col-form-label text-md-right">Time</label>
 
                             <div class="col-md-6">
-                                <input id="storeName" type="text" class="form-control " name="storeName"  value="{{ $storeInfo->name }}" required autofocus>
+                                <input id="Time" type="text" class="form-control " name="Time"  value="{{ $order->time }}" required autofocus>
 
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                             <label for="storeName" class="col-md-4 col-form-label text-md-right">Content</label>
 
                             <div class="col-md-6">
-                                <input id="storeName" type="text" class="form-control " name="storeName"  value="{{ $storeInfo->name }}" required autofocus>
+                                <input id="Content" type="text" class="form-control " name="Content"  value="{{ $order->content }}" required autofocus>
 
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                             <label for="storeName" class="col-md-4 col-form-label text-md-right">Status</label>
 
                             <div class="col-md-6">
-                                <input id="storeName" type="text" class="form-control " name="storeName"  value="{{ $storeInfo->name }}" required autofocus>
+                                <input id="Status" type="text" class="form-control " name="Status"  value="{{ $order->status }}" required autofocus>
 
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary" >
-                                    modify
+                                    confirm
                                 </button>
                             </div>
                         </div>

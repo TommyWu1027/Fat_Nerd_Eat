@@ -31,7 +31,7 @@ class DeliverController extends Controller
             ->update(['deliver' => $request->id, 'status' => $newstatus]);
         }
 
-        return redirect()->route('orderDetail');
+        return redirect()->route('myOrderList');
     }
 
     public function deliverPost(Request $request)

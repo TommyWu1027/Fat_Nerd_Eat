@@ -19,7 +19,7 @@ class OrderController extends Controller
         //
     }
 
-    public function myOrderList(Request $request)
+    public function myOrderList()
     {
         $type_id = (DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id'))[0]->type_id;
         $type = (DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type'))[0]->type;
@@ -83,10 +83,12 @@ class OrderController extends Controller
         return redirect()->route('orderDetail');
     }
 
-    public function orderDetail()
+    public function orderDetail(Request $request)
     {
-
-        return view('orderDetail', []);
+        $orderId = $request->route('orderid');
+        $order = DB::table('orders')->where('id', $orderId)->get();
+        
+        return view('orderDetail', ['order' => $order[0]]);
     }
 
     public function orderList_Deliver()
