@@ -30,6 +30,8 @@ class DeliverController extends Controller
             ->where('id', $deliverId[0]->type_id)
             ->update(['deliver' => $request->id, 'status' => $newstatus]);
         }
+
+        return redirect()->route('orderDetail');
     }
 
     public function deliverPost(Request $request)
