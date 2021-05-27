@@ -74,11 +74,16 @@ class OrderController extends Controller
             'destination' => $destination,
             'content' => $content,
         ]);
-
     }
 
 
     public function orderList_Deliver()
+    {
+        $orderList = DB::table('orders')->get();
+        return view('orderList_D', ['orderList' => $orderList]);
+    }
+
+    public function orderList_Store()
     {
         $orderList = DB::table('orders')->get();
         return view('orderList_D', ['orderList' => $orderList]);

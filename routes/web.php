@@ -28,7 +28,6 @@ Route::post('/storeInfoPost', 'StoreController@storeInfoPost')->name('storeInfoP
 
 Route::get('/addstore', 'StoreController@addstore')->name('addstore');
 Route::post('/storePost', 'StoreController@storePost')->name('storePost');
-Route::get('/storeinfo',  ['middleware' => 'auth', 'uses' => "StoreController@index"]);
 //// add dish
 Route::post('/dishPost_add', 'StoreController@dishPost_add')->name('dishPost_add');
 Route::get('/dish_add', ['middleware' => 'auth', 'uses' => 'StoreController@dish_add'])-> name('dish_add');
@@ -39,8 +38,8 @@ Route::get('/dish_update/{dishName}', ['middleware' => 'auth', 'uses' => 'StoreC
 Route::post('/dishPost_delete', 'StoreController@dishPost_delete')->name('dishPost_delete');
 Route::get('/dish_delete', ['middleware' => 'auth', 'uses' => 'StoreController@dish_delete'])-> name('dish_delete');
 //// order menu
+Route::get('/storeinfo',  ['middleware' => 'auth', 'uses' => "StoreController@index"]);
 Route::get('/menu/{storeid}',  ['middleware' => 'auth', 'uses' => "StoreController@menu"]);
-Route::post('/orderPost_add', 'OrderController@orderPost_add')->name('orderPost_add');
 //// Mydish
 Route::get('/myDish',  ['middleware' => 'auth', 'uses' => "StoreController@myDish"])->name('myDish');;
 
@@ -62,6 +61,7 @@ Route::post('/customerPost', 'CustomerController@customerPost')->name('customerP
 //======================================================================
 
 //order
+Route::post('/orderPost_add', 'OrderController@orderPost_add')->name('orderPost_add');
 Route::get('/orderList_Deliver', 'OrderController@orderList_Deliver')->name('orderList_Deliver');
 //StoreOrder
 Route::get('/myOrderList', 'OrderController@myOrderList')->name('myOrderList');
