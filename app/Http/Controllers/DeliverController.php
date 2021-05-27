@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Deliver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DeliverController extends Controller
 {
@@ -20,17 +21,18 @@ class DeliverController extends Controller
     
     public function orderReceive(Request $request)
     {
-        $deliverId = DB::table('users')->where('id',(int)($request->id))->get('type_id');
+        $deliverId = DB::table('users')->where('id',(int)( Auth::user()->id ))->get('type_id');
         // return $deliverId[0]->type_id;
         $status = DB::table('delivers')->where('id',$deliverId[0]->type_id)->get('status');
         // return $status[0]->status;
         if($status[0]->status == 'Free'){
             $newstatus = 'on the way to receive';
             DB::table('orders')
-            ->where('id', $deliverId[0]->type_id)
-            ->update(['deliver' => $request->id, 'status' => $newstatus]);
+            ->where('id', $request['orderId'])
+            ->update(['deliver' => ( Auth::user()->id ), 'status' => $newstatus]);
         }
-
+        
+        return redirect()->route('orderDetail',['orderid'=>(int)$request['orderId']]);
         return redirect()->route('myOrderList');
     }
 

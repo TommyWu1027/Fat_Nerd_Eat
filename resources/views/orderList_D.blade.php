@@ -8,8 +8,7 @@
                 <div class="card-header">orderReceive</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('orderReceive') }}">
-                            @csrf
+                   
 
                             <div class="form-group row" style="margin-left: auto;margin-right: auto;">
 
@@ -17,7 +16,8 @@
                                 <table class="table"  width="100%">
                                         <thead>
                                             <tr>
-                                            <th scope="col">#</th>
+                                            <th scope="col">Order ID</th>
+                                            <th scope="col">StoreImage</th>
                                             <th scope="col">Store</th>
                                             <th scope="col">destination</th>                        
                                             <th scope="col">Receive</th>
@@ -26,16 +26,21 @@
                                         <tbody>
 
                                         @foreach($orderList as $order)
-                                            @if ( $order->status=="catch me" )
+                                            @if ( $order->status=="Finding a deliver" )
                                             <tr>
+                                            <td>{{$order->id}}</td>
                                             <th scope="row"><img src="{{ URL::asset('storage/'.$order->store.'/logo.jpg') }}" id="img"/></th>
                                             <th scope="row">{{(DB::table('stores')->where('id', (int)($order->store ))->get('name'))[0]->name}}</th>
                                             <td>{{$order->destination}}</td>
                                             
                                             <td>
+                                            <form method="POST" action="{{ route('orderReceive') }}">
+                                             @csrf
+                                                <input name="orderId" value="{{$order->id}}" hidden="hidden">
                                                 <button type="submit" class="btn btn-primary">
                                                     Receive
                                                 </button>
+                                            </form>
                                             </td>    
                                             </tr>
                                             @endif
@@ -45,8 +50,8 @@
                                     </table>
                             </div>
                         
-                            <input id="id" type="text" class="form-control " name="id"  hidden="hidden" value="{{ Auth::user()->id }}">
-                        </form>
+                            
+                        
                 </div>
             </div>
         </div>

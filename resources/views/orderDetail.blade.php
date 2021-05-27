@@ -9,81 +9,84 @@
 
                 <div class="card-body">
                     
-                {{(DB::table('users')->where('id', (int)($order->deliver ))->get('name'))[0]->name}}
+                
 
-                        <form method="POST" action="{{ route('changeStatus') }}" enctype="multipart/form-data">
-                                @csrf
+                            <table class="table"  >
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Subject</th>
+                                        <th scope="col">Content</th>      
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                        <div class="form-group row">
-                            <label for="storeName" class="col-md-4 col-form-label text-md-right">Store Name</label>
+                                        <tr>
+                                            <th scope="row">Order ID</th>
+                                            <td>{{ $order->id }}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <th scope="row">Store</th>
+                                            <td>{{(DB::table('stores')->where('id', (int)($order->store ))->get('name'))[0]->name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Deliver</th>
+                                            <td>{{(DB::table('users')->where('id', (int)($order->deliver ))->get('name'))[0]->name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Customer</th>
+                                            <td>{{(DB::table('users')->where('id', (int)($order->customer ))->get('name'))[0]->name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Destination</th>
+                                            <td>{{ $order->destination }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Time</th>
+                                            <td>{{ $order->time }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Content</th>
+                                            <td>
+                                                @foreach($content as $dish)
+                                                {{ $dish['dishName'] }} * {{ $dish['quantity'] }} <br>
+                                                @endforeach
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Status</th>
+                                            <td>{{ $order->status }}</td>
+                                        </tr>
+                                        @if(Auth::user()->type=="Deliver")
+                                        <tr>
+                                            <th scope="row">Action</th>
+                                            <td>
+                                                <form method="POST" action="{{ route('changeStatus') }}">
+                                                @csrf
+                                                
+                                                <input name="orderId" value="{{ $order->id }}" hidden="hidden">
+                                                @if($order->status=="on the way to receive")
+                                                    <button type="submit" class="btn btn-primary" >I'm already get the dish</button>    
+                                                @endif
 
-                            <div class="col-md-6">
-                                <input id="storeName" type="text" class="form-control " name="storeName"  value="{{(DB::table('stores')->where('id', (int)($order->store ))->get('name'))[0]->name}}" required autofocus>
+                                                @if($order->status=="on the way to customer")
+                                                    <button type="submit" class="btn btn-primary" >I'm arrived</button>    
+                                                @endif
 
-                            </div>
-                        </div>
+                                                @if($order->status=="arrived")
+                                                    <button type="submit" class="btn btn-primary" >Finish the order</button>    
+                                                @endif
 
-                        <div class="form-group row">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">Customer</label>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                   
+                                    </tbody>
+                            </table>
 
-                            <div class="col-md-6">
-                                <input id="Customer" type="text" class="form-control " name="Customer"  value="{{(DB::table('users')->where('id', (int)($order->customer ))->get('name'))[0]->name}}" required autofocus>
 
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="storeName" class="col-md-4 col-form-label text-md-right">Destination</label>
-
-                            <div class="col-md-6">
-                                <input id="Destination" type="text" class="form-control " name="Destination"  value="{{ $order->destination }}" required autofocus>
-
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="storeName" class="col-md-4 col-form-label text-md-right">Deliver</label>
-
-                            <div class="col-md-6">
-                                <input id="storeName" type="text" class="form-control " name="storeName"  value="{{(DB::table('users')->where('id', (int)($order->deliver ))->get('name'))[0]->name}}" required autofocus>
-
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="storeName" class="col-md-4 col-form-label text-md-right">Time</label>
-
-                            <div class="col-md-6">
-                                <input id="Time" type="text" class="form-control " name="Time"  value="{{ $order->time }}" required autofocus>
-
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="storeName" class="col-md-4 col-form-label text-md-right">Content</label>
-
-                            <div class="col-md-6">
-                                <input id="Content" type="text" class="form-control " name="Content"  value="{{ $order->content }}" required autofocus>
-
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="storeName" class="col-md-4 col-form-label text-md-right">Status</label>
-
-                            <div class="col-md-6">
-                                <input id="Status" type="text" class="form-control " name="Status"  value="{{ $order->status }}" required autofocus>
-
-                            </div>
-                        </div>
-        
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" >
-                                    confirm
-                                </button>
-                            </div>
-                        </div>
+                        
                     
                 </div>
             </div>

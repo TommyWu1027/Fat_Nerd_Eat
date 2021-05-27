@@ -74,22 +74,27 @@ class OrderController extends Controller
             'customer' => $request['id'],
             'destination' => $destination,
             'content' => $content,
-            'status' => 'catch me',
+            'status' => 'Finding a deliver',
         ]);
     }
 
     public function changeStatus(Request $request)
     {
-
-        return redirect()->route('orderDetail');
+        $orderId = (DB::table('orders')->where('id', (int)$request['orderId'])->get('id'))[0]->id;
+        
+        return redirect()->route('orderDetail',['orderid'=>$orderId]);
+        
     }
 
     public function orderDetail(Request $request)
     {
         $orderId = $request->route('orderid');
         $order = DB::table('orders')->where('id', $orderId)->get();
+
+        $menu = DB::table('orders')->where('id', $orderId)->get('content');
+        $json_arr = json_decode($menu[0]->content, true);
         
-        return view('orderDetail', ['order' => $order[0]]);
+        return view('orderDetail', ['order' => $order[0],'content'=> $json_arr]);
     }
 
     public function orderList_Deliver()
