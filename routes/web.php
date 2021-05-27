@@ -43,6 +43,7 @@ Route::get('/menu/{storeid}',  ['middleware' => 'auth', 'uses' => "StoreControll
 Route::post('/orderPost_add', 'OrderController@orderPost_add')->name('orderPost_add');
 //// Mydish
 Route::get('/myDish',  ['middleware' => 'auth', 'uses' => "StoreController@myDish"])->name('myDish');;
+
 //======================================================================
 
 // deliver
@@ -62,3 +63,5 @@ Route::post('/customerPost', 'CustomerController@customerPost')->name('customerP
 
 //order
 Route::get('/orderList_Deliver', 'OrderController@orderList_Deliver')->name('orderList_Deliver');
+//StoreOrder
+Route::get('/myOrderList', 'OrderController@myOrderList')->name('myOrderList');

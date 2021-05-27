@@ -61,7 +61,7 @@
                                     <a class="dropdown-item" href="{{ route('home') }}">{{ __('Home') }}</a>
                                     @if (Auth::user()->type=="Store")
                                         <a class="dropdown-item" href="{{ route('myDish') }}">{{ __('myDish') }}</a>
-                                        <a class="dropdown-item" href="{{ route('home') }}">{{ __('myOrder') }}</a>
+                                        <a class="dropdown-item" href="{{ route('myOrderList') }}">{{ __('myOrder') }}</a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

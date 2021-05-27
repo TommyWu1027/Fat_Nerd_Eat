@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -15,6 +16,30 @@ class OrderController extends Controller
      */
     public function index()
     {
+        //
+    }
+
+    public function myOrderList(Request $request)
+    {
+        $type_id = (DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id'))[0]->type_id;
+        $type = (DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type'))[0]->type;
+        
+        if($type=='Store'){
+            $orderList = DB::table('orders')->where('store', $type_id )->get();
+            
+        }
+        else if($type=='Customer'){
+            $orderList = DB::table('orders')->where('customer', $type_id )->get();
+            
+        }
+        else if($type=='Deliver'){
+            $orderList = DB::table('orders')->where('deliver', $type_id )->get();
+            
+        }
+       
+        return view('myOrderList', ['myOrderList' => $orderList]);
+        
+        
         //
     }
 
