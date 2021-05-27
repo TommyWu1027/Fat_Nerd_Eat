@@ -23,17 +23,16 @@ class OrderController extends Controller
     {
         $type_id = (DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id'))[0]->type_id;
         $type = (DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type'))[0]->type;
-        
+        $userId = (int)( Auth::user()->id );
         if($type=='Store'){
             $orderList = DB::table('orders')->where('store', $type_id )->get();
             
         }
         else if($type=='Customer'){
-            $orderList = DB::table('orders')->where('customer', $type_id )->get();
-            
+            $orderList = DB::table('orders')->where('customer', $userId)->get();
         }
         else if($type=='Deliver'){
-            $orderList = DB::table('orders')->where('deliver', $type_id )->get();
+            $orderList = DB::table('orders')->where('deliver', $userId )->get();
             
         }
        
@@ -67,9 +66,11 @@ class OrderController extends Controller
         $customer_Id = DB::table('users')->where('id',(int)($request->id))->get('type_id');
         $address = DB::table('customers')->where('id',$customer_Id[0]->type_id)->get('address');
         $destination = $address[0]->address;
+
+        //$storeUserID = (DB::table('users')->where([['type','=','Customer'],['type_id','=',(int)($request['storeid']]]))->get('id'))[0]->id;
         // return $destination;
         $order = Order::create([
-            'store' => $request['storeid'],
+            'store' =>  $request['storeid'],
             'customer' => $request['id'],
             'destination' => $destination,
             'content' => $content,
