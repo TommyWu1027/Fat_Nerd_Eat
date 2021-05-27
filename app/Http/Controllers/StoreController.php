@@ -23,6 +23,48 @@ class StoreController extends Controller
         return view('storelist', ['storeInfo' => $storeInfo]);
     }
 
+    public function storeHome()
+    {
+        $storeId = DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id');
+        $storeInfo = DB::table('stores')->where('id', $storeId[0]->type_id)->get();
+        
+        
+        return view('storeHome', ['storeInfo' => $storeInfo[0]]);
+    }
+
+    public function storeInfoPost(Request $request)
+    {
+        $storeId = DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id');
+        $storeInfo = DB::table('stores')->where('id', $storeId[0]->type_id)->get();
+
+        DB::table('stores')
+        ->where('id', $storeId[0]->type_id)
+        ->update(['name' => $request->storeName]);
+
+        DB::table('stores')
+        ->where('id', $storeId[0]->type_id)
+        ->update(['address' => $request->address]);
+
+        //儲存上傳的圖片
+
+        $file_path ='storage/'.$storeId[0]->type_id;
+
+        if (request()->hasFile('image'))
+        {
+            if(!file_exists($file_path)){
+                mkdir($file_path);}
+            $imageURL = request()->file('image')->storeAs('public/'.$storeId[0]->type_id, 'logo.jpg');
+        
+        }
+
+        //縮放圖片大小        
+        Image::make(storage_path('app/public/' .$storeId[0]->type_id .'/logo.jpg'))
+        ->resize(150, 100)
+        ->save(storage_path('app/public/'.$storeId[0]->type_id .'/logo.jpg'));
+        
+        return redirect()->route('storeHome');
+    }
+
     public function menu(Request $request)
     {
         $storeId = $request->route('storeid');
@@ -62,15 +104,15 @@ class StoreController extends Controller
     {       
         
         
-
+        
       
         // 前端選擇的店家的舊菜單
-        $storeId = DB::table('users')->where('id', (int)($request->id))->get('type_id');
+        $storeId = DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id');
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
-        $file_path ='storage/'.$storeId[0]->type_id;
         
-  
+        
+        
         // $json_arr = json_decode($oldmenu[0]->dish, true);
         // return $json_arr[0]['dishName'];
         // 新增菜色
@@ -87,6 +129,9 @@ class StoreController extends Controller
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
         //儲存上傳的圖片
+
+        $file_path ='storage/'.$storeId[0]->type_id;
+
         if (request()->hasFile('image'))
         {
             if(!file_exists($file_path)){
@@ -94,15 +139,22 @@ class StoreController extends Controller
             $imageURL = request()->file('image')->storeAs('public/'.$storeId[0]->type_id, $request->dishName.'.jpg');
         
         }
-        
+
+        //縮放圖片大小        
+        Image::make(storage_path('app/public/' .$storeId[0]->type_id .'/'. $request->dishName.'.jpg'))
+        ->resize(150, 100)
+        ->save(storage_path('app/public/'.$storeId[0]->type_id .'/'. $request->dishName.'.jpg'));
+
         return redirect()->route('myDish');
         return $oldmenu;
     }
 
     public function dishPost_update(Request $request)
     {   
+
+        
         // 前端選擇的店家的舊菜單
-        $storeId = DB::table('users')->where('id', (int)($request->id))->get('type_id');
+        $storeId = DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id');
         $oldmenu = DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
         // 更新價錢
@@ -121,7 +173,24 @@ class StoreController extends Controller
         ->update(['dish' => $newmenu]);
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
-        // return redirect()->route('myDish');
+        //新增圖片
+
+        $file_path ='storage/'.$storeId[0]->type_id;
+
+        if (request()->hasFile('image'))
+        {
+            if(!file_exists($file_path)){
+                mkdir($file_path);}
+            $imageURL = request()->file('image')->storeAs('public/'.$storeId[0]->type_id, $request->dishName.'.jpg');
+        
+        }
+
+        //縮放圖片大小        
+        Image::make(storage_path('app/public/' .$storeId[0]->type_id .'/'. $request->dishName.'.jpg'))
+        ->resize(150, 100)
+        ->save(storage_path('app/public/'.$storeId[0]->type_id .'/'. $request->dishName.'.jpg'));
+
+        return redirect()->route('myDish');
         return $oldmenu;
     }
 
@@ -180,14 +249,23 @@ class StoreController extends Controller
         return view('add_dish');
     }
 
-    public function dish_update()
+    public function dish_update(Request $request)
     {
+        
         //
         $storeId = DB::table('users')->where('id', (int)(Auth::user()->id))->get('type_id');
         $oldmenu = DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
         $json_arr = json_decode($oldmenu[0]->dish, true);
+        $dishNameChoose = $request->route('dishName');
+        
+        foreach ($json_arr as $dish) {
+            if ($dish['dishName']==$dishNameChoose){
+                $dishName = $dish['dishName'];
+                $dishPrice = $dish['dishPrice'];
+            }
+        }
         // return $json_arr;
-        return view('update_dish', ['dishName' => $json_arr]);
+        return view('update_dish', ['dishName' => $dishName,'dishPrice'=> $dishPrice,'storeId' => $storeId[0]->type_id ]);
     }
 
     public function dish_delete()

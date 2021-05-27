@@ -8,18 +8,26 @@
                 <div class="card-header">Update dish</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('dishPost_update') }}">
+                    <form method="POST" action="{{ route('dishPost_update') }}" enctype="multipart/form-data">
                         @csrf
+
+                        <div class="form-group row">
+                            <label for="Image" class="col-md-4 col-form-label text-md-right">Original Image</label>
+
+                            <div class="col-md-6">
+                            
+                                <img src="{{ URL::asset('storage/'.$storeId.'/'.$dishName .'.jpg') }}" id="img"/>
+     
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="dishname" class="col-md-4 col-form-label text-md-right">Dishname</label>
 
                             <div class="col-md-6">
-                                <select id="dishname" type="text" class="form-control " name="dishName"  required autofocus>
-                                    @foreach($dishName as $dish)
-                                        <option value="{{$dish['dishName']}}">{{$dish['dishName']}}</option>
-                                    @endforeach
-                                </select>
+                            
+                                <input id="dishname" type="text" class="form-control " name="dishName"  value="{{ $dishName }}" required autofocus readonly="readlonly">
+     
                             </div>
                         </div>
 
@@ -27,12 +35,20 @@
                             <label for="dishprice" class="col-md-4 col-form-label text-md-right">Dishprice</label>
 
                             <div class="col-md-6">
-                                <input id="dishprice" type="text" class="form-control " name="dishPrice"  required>
+                                <input id="dishprice" type="text" class="form-control " name="dishPrice" value="{{ $dishPrice }}" required>
 
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="image" class="col-md-4 col-form-label text-md-right">Change Image</label>
+
+                            <div class="col-md-6">
+                            <input accept="image/*, image/heic, image/heif" type="file" class="form-control-file" id="image" name="image">
+                            </div>
+                        </div>
                         
-                            <input id="id" type="text" class="form-control " name="id"  hidden="hidden" value="{{ Auth::user()->id }}">
+                           
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

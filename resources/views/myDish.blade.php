@@ -12,9 +12,9 @@
 
                         <div class="form-group row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" >
                             
-                                <table class="table"  width="100%">
+                                <table class="table"  width="100%" >
                                     <thead>
                                         <tr>
                                         <th scope="col">#</th>
@@ -29,11 +29,13 @@
                                     @foreach($menu as $dish)
                                          
                                         <tr>
-                                        <th scope="row"><img src="{{ URL::asset('storage/'.$storeid.'/'.$dish["dishName"].'.jpg') }}" id="img"/></th>
+                                        <th scope="row">
+                                            <img src="{{ URL::asset('storage/'.$storeid.'/'.$dish["dishName"].'.jpg') }}" id="img"/>
+                                        </th>
                                         <td>{{$dish['dishName']}}</td>
                                         <td>{{$dish['dishPrice']}}</td>
                                         <td>
-                                            <button type="submit" class="btn btn-success" onclick="location.href='{{ route('dish_update') }}'" >Update</button>
+                                            <button type="submit" class="btn btn-success" onclick="location.href='{{ route('dish_update',$dish['dishName']) }}'" >Update</button>
                                         </td>
                                         <td>
                                             <form method="POST" action="{{ route('dishPost_delete') }}">
