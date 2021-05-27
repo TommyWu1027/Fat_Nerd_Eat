@@ -58,7 +58,9 @@
                                             <td>{{ $order->status }}</td>
                                         </tr>
                                         @if(Auth::user()->type=="Deliver")
+                                        @if($order->status!="done")    
                                         <tr>
+                                            
                                             <th scope="row">Action</th>
                                             <td>
                                                 <form method="POST" action="{{ route('changeStatus') }}">
@@ -79,7 +81,9 @@
 
                                                 </form>
                                             </td>
+                                            
                                         </tr>
+                                        @endif
                                         @endif
                                    
                                     </tbody>

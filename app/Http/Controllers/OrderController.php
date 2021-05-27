@@ -81,7 +81,23 @@ class OrderController extends Controller
     public function changeStatus(Request $request)
     {
         $orderId = (DB::table('orders')->where('id', (int)$request['orderId'])->get('id'))[0]->id;
-        
+        $orderStatus = (DB::table('orders')->where('id', (int)$request['orderId'])->get('status'))[0]->status;
+
+        if($orderStatus=="on the way to receive"){
+            DB::table('orders')
+            ->where('id', (int)$request['orderId'])
+            ->update(['status' => 'on the way to customer']);}
+
+        else if($orderStatus=="on the way to customer"){
+            DB::table('orders')
+            ->where('id', (int)$request['orderId'])
+            ->update(['status' => 'arrived']);}
+
+        else if($orderStatus=="arrived"){
+            DB::table('orders')
+            ->where('id', (int)$request['orderId'])
+            ->update(['status' => 'done']);}
+
         return redirect()->route('orderDetail',['orderid'=>$orderId]);
         
     }
