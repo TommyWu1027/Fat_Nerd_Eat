@@ -30,8 +30,8 @@
                                         @foreach($menu as $dish)
                                             
                                             <tr>
-                                            <th scope="row">
-                                                <img src="{{ URL::asset('storage/'.$storeid.'/'.$dish["dishName"].'.jpg') }}" id="img"/>
+                                            <th scope="row">                                 
+                                                <img src="{{ URL::asset('storage/'.$storeid.'/'.$dish["dishName"].'.jpg') }}" id="img"/>       
                                             </th>
                                             <td>{{$dish['dishName']}}</td>
                                             <td>{{$dish['dishPrice']}}</td>

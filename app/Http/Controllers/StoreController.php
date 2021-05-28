@@ -54,13 +54,15 @@ class StoreController extends Controller
             if(!file_exists($file_path)){
                 mkdir($file_path);}
             $imageURL = request()->file('image')->storeAs('public/'.$storeId[0]->type_id, 'logo.jpg');
+
+            //縮放圖片大小        
+            Image::make(storage_path('app/public/' .$storeId[0]->type_id .'/logo.jpg'))
+            ->resize(150, 100)
+            ->save(storage_path('app/public/'.$storeId[0]->type_id .'/logo.jpg'));
         
         }
 
-        //縮放圖片大小        
-        Image::make(storage_path('app/public/' .$storeId[0]->type_id .'/logo.jpg'))
-        ->resize(150, 100)
-        ->save(storage_path('app/public/'.$storeId[0]->type_id .'/logo.jpg'));
+        
         
         return redirect()->route('storeHome');
     }
@@ -112,8 +114,45 @@ class StoreController extends Controller
         $storeId = DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id');
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
+        //儲存上傳的圖片
+
+        $file_path ='storage/'.$storeId[0]->type_id;
+
+        if (request()->hasFile('image'))
+        {
+            if(!file_exists($file_path)){
+                mkdir($file_path);}
+            $imageURL = request()->file('image')->storeAs('public/'.$storeId[0]->type_id, $request->dishName.'.jpg');
+
+             //縮放圖片大小        
+            Image::make(storage_path('app/public/' .$storeId[0]->type_id .'/'. $request->dishName.'.jpg'))
+            ->resize(150, 100)
+            ->save(storage_path('app/public/'.$storeId[0]->type_id .'/'. $request->dishName.'.jpg'));
+            
+        }
         
-        
+        // 檢查是法有相同名稱的產品
+        $json_arr = json_decode($oldmenu[0]->dish, true);
+        $i = 0;
+        $if_repeat = false;
+        foreach ($json_arr as $key) {
+            if ($key['dishName'] == $request->dishName) {
+                $json_arr[$i]['dishPrice'] = $request->dishPrice;
+                $if_repeat = true ; 
+            }
+            $i++;
+        }
+
+        if($if_repeat){
+
+            // 回傳至資料庫
+            $newmenu = json_encode($json_arr);
+            DB::table('stores')
+            ->where('id', $storeId[0]->type_id)
+            ->update(['dish' => $newmenu]);
+            $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
+            return redirect()->route('myDish');
+        }
         
         // $json_arr = json_decode($oldmenu[0]->dish, true);
         // return $json_arr[0]['dishName'];
@@ -124,28 +163,18 @@ class StoreController extends Controller
         }
         else $json_arr[] = array('dishName' => $request->dishName, 'dishPrice' => $request->dishPrice);
         // 回傳至資料庫
-        $newmenu = json_encode($json_arr);
+        $newmenu = json_encode($json_arr);  
+
+        
+
+        
+
         DB::table('stores')
         ->where('id', $storeId[0]->type_id)
         ->update(['dish' => $newmenu]);
         $oldmenu=DB::table('stores')->where('id', $storeId[0]->type_id)->get('dish');
 
-        //儲存上傳的圖片
-
-        $file_path ='storage/'.$storeId[0]->type_id;
-
-        if (request()->hasFile('image'))
-        {
-            if(!file_exists($file_path)){
-                mkdir($file_path);}
-            $imageURL = request()->file('image')->storeAs('public/'.$storeId[0]->type_id, $request->dishName.'.jpg');
-        
-        }
-
-        //縮放圖片大小        
-        Image::make(storage_path('app/public/' .$storeId[0]->type_id .'/'. $request->dishName.'.jpg'))
-        ->resize(150, 100)
-        ->save(storage_path('app/public/'.$storeId[0]->type_id .'/'. $request->dishName.'.jpg'));
+       
 
         return redirect()->route('myDish');
         return $oldmenu;
@@ -184,14 +213,16 @@ class StoreController extends Controller
             if(!file_exists($file_path)){
                 mkdir($file_path);}
             $imageURL = request()->file('image')->storeAs('public/'.$storeId[0]->type_id, $request->dishName.'.jpg');
+
+            //縮放圖片大小        
+            Image::make(storage_path('app/public/' .$storeId[0]->type_id .'/'. $request->dishName.'.jpg'))
+            ->resize(150, 100)
+            ->save(storage_path('app/public/'.$storeId[0]->type_id .'/'. $request->dishName.'.jpg'));
+
         
         }
 
-        //縮放圖片大小        
-        Image::make(storage_path('app/public/' .$storeId[0]->type_id .'/'. $request->dishName.'.jpg'))
-        ->resize(150, 100)
-        ->save(storage_path('app/public/'.$storeId[0]->type_id .'/'. $request->dishName.'.jpg'));
-
+        
         return redirect()->route('myDish');
         return $oldmenu;
     }
