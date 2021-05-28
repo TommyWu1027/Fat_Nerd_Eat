@@ -32,7 +32,7 @@
                                         <td>{{$dish['dishName']}}</td>
                                         <td>{{$dish['dishPrice']}}</td>
                                         <td>
-                                            <input id="quantity" name="{{$dish['dishName']}}" type="number" min="0" style="width: 40px;" >
+                                            <input id="quantity" name="{{$dish['dishName']}}" type="number" min="0" style="width: 40px;" value="0">
                                         </td>    
                                         </tr>
                                         

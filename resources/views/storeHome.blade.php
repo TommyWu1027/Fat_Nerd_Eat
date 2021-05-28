@@ -44,7 +44,15 @@
                             <label for="myDish" class="col-md-4 col-form-label text-md-right">myDish</label>
 
                             <div class="col-md-6">
-                                <input type ="button"  class="btn btn-success" onclick="javascript:location.href='{{ route('myDish') }}'" value="detail"></input>
+                                <input type ="button"  class="btn btn-success" onclick="javascript:location.href='{{ route('myDish') }}'" value="my Dish detail"></input>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="myOrder" class="col-md-4 col-form-label text-md-right">myOrder</label>
+
+                            <div class="col-md-6">
+                                <input type ="button"  class="btn btn-info" onclick="javascript:location.href='{{ route('myOrderList') }}'" value="my Order List"></input>
                             </div>
                         </div>
                         

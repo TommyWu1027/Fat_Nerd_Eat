@@ -76,27 +76,34 @@ class OrderController extends Controller
             'content' => $content,
             'status' => 'Finding a deliver',
         ]);
+        return redirect()->route('myOrderList');
     }
 
     public function changeStatus(Request $request)
     {
         $orderId = (DB::table('orders')->where('id', (int)$request['orderId'])->get('id'))[0]->id;
         $orderStatus = (DB::table('orders')->where('id', (int)$request['orderId'])->get('status'))[0]->status;
+        $deliverId = (DB::table('users')->where('id',(int)( Auth::user()->id ))->get('type_id'))[0]->type_id;
 
-        if($orderStatus=="on the way to receive"){
+        if($orderStatus=="On the way to receive"){
             DB::table('orders')
             ->where('id', (int)$request['orderId'])
-            ->update(['status' => 'on the way to customer']);}
+            ->update(['status' => 'On the way to customer']);}
 
-        else if($orderStatus=="on the way to customer"){
+        else if($orderStatus=="On the way to customer"){
             DB::table('orders')
             ->where('id', (int)$request['orderId'])
-            ->update(['status' => 'arrived']);}
+            ->update(['status' => 'Arrived']);}
 
-        else if($orderStatus=="arrived"){
+        else if($orderStatus=="Arrived"){
             DB::table('orders')
             ->where('id', (int)$request['orderId'])
-            ->update(['status' => 'done']);}
+            ->update(['status' => 'Done']);
+            
+            DB::table('delivers')
+            ->where('id', $deliverId)
+            ->update(['status' =>  'Free']);
+        }
 
         return redirect()->route('orderDetail',['orderid'=>$orderId]);
         
@@ -116,6 +123,13 @@ class OrderController extends Controller
     public function orderList_Deliver()
     {
         $orderList = DB::table('orders')->get();
+        
+        $deliverId = DB::table('users')->where('id',(int)( Auth::user()->id ))->get('type_id');
+        $status = (DB::table('delivers')->where('id',$deliverId[0]->type_id)->get('status'))[0]->status;
+        if( $status!='Free'){
+            return redirect()->route('orderDetail',['orderid'=>$status]);
+        }
+
         return view('orderList_D', ['orderList' => $orderList]);
     }
 

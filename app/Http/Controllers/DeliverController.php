@@ -26,10 +26,14 @@ class DeliverController extends Controller
         $status = DB::table('delivers')->where('id',$deliverId[0]->type_id)->get('status');
         // return $status[0]->status;
         if($status[0]->status == 'Free'){
-            $newstatus = 'on the way to receive';
+            $newstatus = 'On the way to receive';
             DB::table('orders')
             ->where('id', $request['orderId'])
             ->update(['deliver' => ( Auth::user()->id ), 'status' => $newstatus]);
+
+            DB::table('delivers')
+            ->where('id', $deliverId[0]->type_id)
+            ->update(['status' =>  $request['orderId']]);
         }
         
         return redirect()->route('orderDetail',['orderid'=>(int)$request['orderId']]);

@@ -31,7 +31,13 @@
                                         </tr>
                                         <tr>
                                             <th scope="row">Deliver</th>
-                                            <td>{{(DB::table('users')->where('id', (int)($order->deliver ))->get('name'))[0]->name}}</td>
+                                            <td>
+                                            @if ($order->deliver != null)
+                                            {{(DB::table('users')->where('id', (int)($order->deliver ))->get('name'))[0]->name}}
+                                            @else
+                                            Finding a deliver
+                                            @endif
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Customer</th>
@@ -41,10 +47,10 @@
                                             <th scope="row">Destination</th>
                                             <td>{{ $order->destination }}</td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <th scope="row">Time</th>
                                             <td>{{ $order->time }}</td>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
                                             <th scope="row">Content</th>
                                             <td>
@@ -58,7 +64,7 @@
                                             <td>{{ $order->status }}</td>
                                         </tr>
                                         @if(Auth::user()->type=="Deliver")
-                                        @if($order->status!="done")    
+                                        @if($order->status!="Done")    
                                         <tr>
                                             
                                             <th scope="row">Action</th>
@@ -67,15 +73,15 @@
                                                 @csrf
                                                 
                                                 <input name="orderId" value="{{ $order->id }}" hidden="hidden">
-                                                @if($order->status=="on the way to receive")
+                                                @if($order->status=="On the way to receive")
                                                     <button type="submit" class="btn btn-primary" >I'm already get the dish</button>    
                                                 @endif
 
-                                                @if($order->status=="on the way to customer")
+                                                @if($order->status=="On the way to customer")
                                                     <button type="submit" class="btn btn-primary" >I'm arrived</button>    
                                                 @endif
 
-                                                @if($order->status=="arrived")
+                                                @if($order->status=="Arrived")
                                                     <button type="submit" class="btn btn-primary" >Finish the order</button>    
                                                 @endif
 
