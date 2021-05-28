@@ -58,7 +58,7 @@ class OrderController extends Controller
         for($i = 0 ; $i < count($menu_arr) ; $i++){
             $dish = str_replace(' ', '_', $menu_arr[$i]["dishName"]);
             if($request[$dish] != NULL){
-                $content_arr[] = array('dishName' => $dish, 'quantity' => $request[$dish]);
+                $content_arr[] = array('dishName' => $dish, 'dishPrice' => $menu_arr[$i]["dishPrice"], 'quantity' => $request[$dish]);
             }
         }
         $content = json_encode($content_arr);
@@ -74,6 +74,7 @@ class OrderController extends Controller
             'customer' => $request['id'],
             'destination' => $request['destination'],
             'content' => $content,
+            'bill' => $request['total'],
             'status' => 'Finding a deliver',
         ]);
         return redirect()->route('myOrderList');
@@ -116,6 +117,7 @@ class OrderController extends Controller
 
         $menu = DB::table('orders')->where('id', $orderId)->get('content');
         $json_arr = json_decode($menu[0]->content, true);
+        // return $json_arr;
         
         return view('orderDetail', ['order' => $order[0],'content'=> $json_arr]);
     }

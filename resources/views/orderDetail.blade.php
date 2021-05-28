@@ -40,6 +40,7 @@
                                             <td>Phone: {{(DB::table('users')->where('id', (int)($order->deliver ))->get('phone'))[0]->phone}}</td>
                                             @else
                                             <td>Finding a deliver</td>
+                                            <td></td>
                                             @endif
                                             
                                         </tr>
@@ -53,15 +54,12 @@
                                             <td>{{ $order->destination }}</td>
                                             <td></td>
                                         </tr>
-                                        <!-- <tr>
-                                            <th scope="row">Time</th>
-                                            <td>{{ $order->time }}</td>
-                                        </tr> -->
+
                                         <tr>
                                             <th scope="row">Content</th>
                                             <td>
                                                 @foreach($content as $dish)
-                                                {{ $dish['dishName'] }} * {{ $dish['quantity'] }} <br>
+                                                {{ $dish['dishName'] }} : ${{ $dish['dishPrice'] }} x {{ $dish['quantity'] }}<br>
                                                 @endforeach
                                             </td>
                                             <td></td>
