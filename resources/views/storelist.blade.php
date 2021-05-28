@@ -21,7 +21,7 @@
                         </thead>
                         <tbody>
                     @foreach($storeInfo as $store)
-                        
+                        @if ( $store->dish != null)
                         <tr>
                             <th scope="row"><img src="{{ URL::asset('storage/'.$store->id.'/logo.jpg') }}" id="img"/></th>
                             <td>{{ $store->name }}</td>
@@ -30,6 +30,7 @@
                                 <input type ="button"  class="btn btn-primary" onclick="javascript:location.href='http://127.0.0.1:8000/menu/{{ $store->id }}'" value="Go"></input>
                             </td>    
                         </tr>
+                        @endif
                     @endforeach
                         </tbody>
                     </table>

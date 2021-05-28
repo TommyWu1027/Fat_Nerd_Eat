@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Menu</div>
+                <div class="card-header">Dish</div>
 
                 <div class="card-body">
                     
@@ -13,7 +13,7 @@
                         <div class="form-group row">
 
                             <div class="col-md-6" >
-                            
+                            @if ($menu!=null)
                                 <table class="table"  width="100%" >
                                     <thead>
                                         <tr>
@@ -26,31 +26,33 @@
                                     </thead>
                                     <tbody>
 
-                                    @foreach($menu as $dish)
-                                         
-                                        <tr>
-                                        <th scope="row">
-                                            <img src="{{ URL::asset('storage/'.$storeid.'/'.$dish["dishName"].'.jpg') }}" id="img"/>
-                                        </th>
-                                        <td>{{$dish['dishName']}}</td>
-                                        <td>{{$dish['dishPrice']}}</td>
-                                        <td>
-                                            <button type="submit" class="btn btn-success" onclick="location.href='{{ route('dish_update',$dish['dishName']) }}'" >Update</button>
-                                        </td>
-                                        <td>
-                                            <form method="POST" action="{{ route('dishPost_delete') }}">
-                                                @csrf
-                                                <input id="dishName" type="text" class="form-control " name="dishName"  hidden="hidden" value="{{$dish['dishName']}}" >
-                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                    
+                                        @foreach($menu as $dish)
+                                            
+                                            <tr>
+                                            <th scope="row">
+                                                <img src="{{ URL::asset('storage/'.$storeid.'/'.$dish["dishName"].'.jpg') }}" id="img"/>
+                                            </th>
+                                            <td>{{$dish['dishName']}}</td>
+                                            <td>{{$dish['dishPrice']}}</td>
+                                            <td>
+                                                <button type="submit" class="btn btn-success" onclick="location.href='{{ route('dish_update',$dish['dishName']) }}'" >Update</button>
+                                            </td>
+                                            <td>
+                                                <form method="POST" action="{{ route('dishPost_delete') }}">
+                                                    @csrf
+                                                    <input id="dishName" type="text" class="form-control " name="dishName"  hidden="hidden" value="{{$dish['dishName']}}" >
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
 
-                                            </form>
-                                        </td>
-                                        </tr>
-                                        
-                                    @endforeach
+                                                </form>
+                                            </td>
+                                            </tr>
+                                            
+                                        @endforeach
+                                   
                                     </tbody>
                                 </table>
-    
+                            @endif
                             </div>
                         </div>
                         
