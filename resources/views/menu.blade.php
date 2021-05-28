@@ -32,7 +32,7 @@
                                         <td>{{$dish['dishName']}}</td>
                                         <td>{{$dish['dishPrice']}}</td>
                                         <td>
-                                            <input id="quantity" name="{{$dish['dishName']}}" type="number" min="0" style="width: 40px;" value="0">
+                                            <input id="{{$dish['dishName']}}" name="{{$dish['dishName']}}" type="number" min="0" style="width: 40px;" value="0">
                                         </td>    
                                         </tr>
                                         
@@ -52,6 +52,14 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="total" class="col-md-4 col-form-label text-md-right">Total Price</label>
+
+                            <div class="col-md-6">
+                                <input id="total" type="text" class="form-control" name="total" required value="0" readonly="readonly">
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -65,4 +73,39 @@
         </div>
     </div>
 </div>
+
+<script>
+    
+    $(document).ready(function(){
+
+        let dishName = [];
+        let dishPrice = [];
+        
+
+        @foreach($menu as $dish)
+        var {{$dish['dishName']}} = document.getElementById("{{$dish['dishName']}}");
+        {{$dish['dishName']}}.addEventListener('change', (event) => {
+            var totalPrice = 0;
+            for(i=0;i<dishName.length;i++){
+                
+                totalPrice += Number(dishName[i].value) *  Number(dishPrice[i]);
+               
+            }
+            document.getElementById("total").value=totalPrice;
+
+        })
+
+       dishName.push({{$dish['dishName']}});
+       dishPrice.push({{$dish['dishPrice']}});
+        
+        @endforeach
+
+        
+    
+    })
+
+</script>
+
 @endsection
+
+
