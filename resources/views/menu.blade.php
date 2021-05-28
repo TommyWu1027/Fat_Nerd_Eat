@@ -44,6 +44,14 @@
                         <input id="id" type="text" class="form-control " name="id"  hidden="hidden" value="{{ Auth::user()->id }}">
                         <input id="storeid" type="text" class="form-control " name="storeid"  hidden="hidden" value="{{ $storeid }}">
 
+                        <div class="form-group row">
+                            <label for="destination" class="col-md-4 col-form-label text-md-right">Destination</label>
+
+                            <div class="col-md-6">
+                                <input id="destination" type="text" class="form-control" name="destination" required value="{{$address}}">
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

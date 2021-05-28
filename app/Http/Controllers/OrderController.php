@@ -72,7 +72,7 @@ class OrderController extends Controller
         $order = Order::create([
             'store' =>  $request['storeid'],
             'customer' => $request['id'],
-            'destination' => $destination,
+            'destination' => $request['destination'],
             'content' => $content,
             'status' => 'Finding a deliver',
         ]);

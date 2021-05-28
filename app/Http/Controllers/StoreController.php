@@ -70,8 +70,10 @@ class StoreController extends Controller
         $storeId = $request->route('storeid');
         $menu = DB::table('stores')->where('id', $storeId)->get('dish');
         $json_arr = json_decode($menu[0]->dish, true);
+        $type_id = (DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id'))[0]->type_id;
+        $address = (DB::table('customers')->where('id', (int)( $type_id ))->get('address'))[0]->address;
 
-        return view('menu', ["menu" => $json_arr, "storeid" => $storeId]);
+        return view('menu', ["menu" => $json_arr, "storeid" => $storeId,"address" => $address]);
     }
 
     public function myDish(Request $request)
