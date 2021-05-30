@@ -13,7 +13,7 @@
                         <div class="form-group row" style="margin-left: auto;margin-right: auto;">
 
                         
-                            <table class="table"  width="100%">
+                            <table class="rwd-table">
                                     <thead>
                                         <tr>
                                         <th scope="col">ID</th>
@@ -27,10 +27,10 @@
                                     @foreach($myOrderList as $myOrder)
                                          
                                         <tr>
-                                        <th scope="row">{{$myOrder->id}}</th>
-                                        <td>{{(DB::table('stores')->where('id', (int)($myOrder->store ))->get('name'))[0]->name}}</td>
-                                        <td>{{$myOrder->status}}</td>
-                                        <td>
+                                        <td data-th="ID">{{$myOrder->id}}</th>
+                                        <td data-th="Store">{{(DB::table('stores')->where('id', (int)($myOrder->store ))->get('name'))[0]->name}}</td>
+                                        <td data-th="Status">{{$myOrder->status}}</td>
+                                        <td data-th="action">
                                         <input type ="button"  class="btn btn-primary" onclick="javascript:location.href='http://127.0.0.1:8000/orderDetail/{{$myOrder->id}}'" value="Detail"></input>
                                         </td>    
                                         </tr>

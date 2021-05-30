@@ -14,7 +14,7 @@
                         <div class="form-group row" style="margin-left: auto;margin-right: auto;">
 
                         
-                            <table class="table"  width="100%">
+                            <table class="rwd-table">
                                     <thead>
                                         <tr>
                                         <th scope="col">#</th>
@@ -28,10 +28,10 @@
                                     @foreach($menu as $dish)
                                          
                                         <tr>
-                                        <th scope="row"><img src="{{ URL::asset('storage/'.$storeid.'/'.$dish["dishName"].'.jpg') }}" id="img"/></th>
-                                        <td>{{$dish['dishName']}}</td>
-                                        <td>{{$dish['dishPrice']}}</td>
-                                        <td>
+                                        <td data-th="Image" ><img src="{{ URL::asset('storage/'.$storeid.'/'.$dish["dishName"].'.jpg') }}" id="img"/></td>
+                                        <td data-th="Name" >{{$dish['dishName']}}</td>
+                                        <td data-th="Price" >{{$dish['dishPrice']}}</td>
+                                        <td data-th="Quantity" >
                                             <input id="{{$dish['dishName']}}" name="{{$dish['dishName']}}" type="number" min="0" style="width: 40px;" value="0">
                                         </td>    
                                         </tr>
