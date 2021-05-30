@@ -6,6 +6,7 @@ use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -47,8 +48,24 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function orderPost_add(Request $request)
+    public function orderPost_add(Request $request )
     {   
+        // return $request;
+        // 驗證customer有沒有下空白單
+        $validator = Validator::make($request->all(), [
+            'total' => ['required', 'numeric', 'min:1'],
+        ]);
+        
+        // return $validator->errors();
+        if ($validator->fails()) {
+            return redirect()
+                        ->route('menu', [
+                            'storeid' => $request->get('storeid')
+                        ])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         // return $request;
         $menu = DB::table('stores')->where('id', (int)($request->storeid))->get('dish');
         // return $menu;
@@ -61,6 +78,7 @@ class OrderController extends Controller
                 $content_arr[] = array('dishName' => $dish, 'dishPrice' => $menu_arr[$i]["dishPrice"], 'quantity' => $request[$dish]);
             }
         }
+
         $content = json_encode($content_arr);
         // return $content;
         $customer_Id = DB::table('users')->where('id',(int)($request->id))->get('type_id');

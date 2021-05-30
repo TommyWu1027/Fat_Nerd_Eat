@@ -59,7 +59,7 @@
                                 <input id="total" type="text" class="form-control" name="total" required value="0" readonly="readonly">
                             </div>
                         </div>
-
+                        
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -68,6 +68,13 @@
                             </div>
                         </div>
                     </form>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                You have to order something.
+                            </ul>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
