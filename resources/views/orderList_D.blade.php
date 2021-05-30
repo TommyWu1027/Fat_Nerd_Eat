@@ -12,37 +12,43 @@
 
                             <div class="form-group row" style="margin-left: auto;margin-right: auto;">
 
-                            
-                                <table class="table"  width="100%">
+
+                                <table class="rwd-table">
                                         <thead>
                                             <tr>
-                                            <th scope="col">Order ID</th>
-                                            <th scope="col">StoreImage</th>
-                                            <th scope="col">Store</th>
-                                            <th scope="col">destination</th>                        
-                                            <th scope="col">Receive</th>
+                                            <th>ID</th>
+                                            <th>StoreImage</th>
+                                            <th>Store</th>
+                                            <th>destination</th>                        
+                                            <th>Receive</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
                                         @foreach($orderList as $order)
                                             @if ( $order->status=="Finding a deliver" )
-                                            <tr>
-                                            <td>{{$order->id}}</td>
-                                            <th scope="row"><img src="{{ URL::asset('storage/'.$order->store.'/logo.jpg') }}" id="img"/></th>
-                                            <th scope="row">{{(DB::table('stores')->where('id', (int)($order->store ))->get('name'))[0]->name}}</th>
-                                            <td>{{$order->destination}}</td>
                                             
-                                            <td>
-                                            <form method="POST" action="{{ route('orderReceive') }}">
+                                            <tr>
+                                            <td data-th="ID" >{{$order->id}}</td>
+                                            <td data-th="StoreImage"><img src="{{ URL::asset('storage/'.$order->store.'/logo.jpg') }}" id="img"/></td>
+                                            <td data-th="Store">{{(DB::table('stores')->where('id', (int)($order->store ))->get('name'))[0]->name}}</td>
+                                            <td data-th="destination">{{$order->destination}}</td>
+
+                                            
+                                            <td data-th="Receive">
+                                            
+                                            <form method="POST" action="{{ route('orderReceive') }}" style="margin:0px;display:inline">
                                              @csrf
-                                                <input name="orderId" value="{{$order->id}}" hidden="hidden">
                                                 <button type="submit" class="btn btn-primary">
                                                     Receive
                                                 </button>
+                                                <input name="orderId" value="{{$order->id}}" hidden="hidden">
                                             </form>
-                                            </td>    
+                                            
+                                            </td>  
+                                            
                                             </tr>
+                                             
                                             @endif
                                             
                                         @endforeach

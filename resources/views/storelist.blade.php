@@ -10,12 +10,12 @@
                 <div class="card-body">
 
                     
-                    <table class="table"  width="100%">
+                    <table class="rwd-table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">StoreName</th>
-                                <th scope="col">StoreAddress</th> 
+                                <th scope="col">Name</th>
+                                <th scope="col">Address</th> 
                                 <th scope="col">Action</th>  
                             </tr>
                         </thead>
@@ -23,10 +23,10 @@
                     @foreach($storeInfo as $store)
                         @if ( $store->dish != null)
                         <tr>
-                            <th scope="row"><img src="{{ URL::asset('storage/'.$store->id.'/logo.jpg') }}" id="img"/></th>
-                            <td>{{ $store->name }}</td>
-                            <td>{{ $store->address }}</td>
-                            <td>
+                            <td data-th="Store"><img src="{{ URL::asset('storage/'.$store->id.'/logo.jpg') }}" id="img"/></th>
+                            <td data-th="Name">{{ $store->name }}</td>
+                            <td data-th="Address"> {{ $store->address }}</td>
+                            <td data-th="Action">
                                 <input type ="button"  class="btn btn-primary" onclick="javascript:location.href='http://127.0.0.1:8000/menu/{{ $store->id }}'" value="Go"></input>
                             </td>    
                         </tr>

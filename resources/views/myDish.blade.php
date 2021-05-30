@@ -14,7 +14,7 @@
 
                             <div class="col-md-6" >
                             @if ($menu!=null)
-                                <table class="table"  width="100%" >
+                                <table class="rwd-table" >
                                     <thead>
                                         <tr>
                                         <th scope="col">#</th>
@@ -30,22 +30,20 @@
                                         @foreach($menu as $dish)
                                             
                                             <tr>
-                                            <th scope="row">                                 
-                                                <img src="{{ URL::asset('storage/'.$storeid.'/'.$dish["dishName"].'.jpg') }}" id="img"/>       
-                                            </th>
-                                            <td>{{$dish['dishName']}}</td>
-                                            <td>{{$dish['dishPrice']}}</td>
-                                            <td>
-                                                <button type="submit" class="btn btn-success" onclick="location.href='{{ route('dish_update',$dish['dishName']) }}'" >Update</button>
-                                            </td>
-                                            <td>
-                                                <form method="POST" action="{{ route('dishPost_delete') }}">
-                                                    @csrf
-                                                    <input id="dishName" type="text" class="form-control " name="dishName"  hidden="hidden" value="{{$dish['dishName']}}" >
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                <td data-th="Image"><img src="{{ URL::asset('storage/'.$storeid.'/'.$dish["dishName"].'.jpg') }}" id="img"/></td>
+                                                <td data-th="Name">{{$dish['dishName']}}</td>
+                                                <td data-th="Price">{{$dish['dishPrice']}}</td>
+                                                <td data-th="Update">
+                                                    <button type="submit" class="btn btn-success" onclick="location.href='{{ route('dish_update',$dish['dishName']) }}'" >Update</button>
+                                                </td>
+                                                <td data-th="Delete">
+                                                    <form method="POST" action="{{ route('dishPost_delete') }}" style="margin:0px;display:inline">
+                                                        @csrf
+                                                        <input id="dishName" type="text" class="form-control " name="dishName"  hidden="hidden" value="{{$dish['dishName']}}" >
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
 
-                                                </form>
-                                            </td>
+                                                    </form>
+                                                </td>
                                             </tr>
                                             
                                         @endforeach
@@ -56,6 +54,7 @@
                             </div>
                         </div>
                         
+                        <br>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

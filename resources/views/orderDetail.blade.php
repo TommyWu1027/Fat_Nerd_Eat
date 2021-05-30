@@ -16,7 +16,7 @@
                                         <tr>
                                         <th scope="col">Subject</th>
                                         <th scope="col">Content</th>
-                                        <td></td>      
+                                              
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -24,51 +24,65 @@
                                         <tr>
                                             <th scope="row">Order ID</th>
                                             <td>{{ $order->id }}</td>
-                                            <td></td>
+                                            
                                         </tr>
                                         
                                         <tr>
                                             <th scope="row">Store</th>
-                                            <td>{{(DB::table('stores')->where('id', (int)($order->store ))->get('name'))[0]->name}}</td>
-                                            <td>Phone: {{(DB::table('users')->where('type', 'Store')->where('type_id', (int)($order->store ))->get('phone'))[0]->phone}}</td>
+                                            <td>
+                                                {{(DB::table('stores')->where('id', (int)($order->store ))->get('name'))[0]->name}}
+                                                <br>
+                                                Phone: {{(DB::table('users')->where('type', 'Store')->where('type_id', (int)($order->store ))->get('phone'))[0]->phone}}
+                                            </td>
+                                            
                                         </tr>
                                         <tr>
                                             <th scope="row">Deliver</th>
                                             
                                             @if ($order->deliver != null)
-                                            <td>{{(DB::table('users')->where('id', (int)($order->deliver ))->get('name'))[0]->name}}</td>
-                                            <td>Phone: {{(DB::table('users')->where('id', (int)($order->deliver ))->get('phone'))[0]->phone}}</td>
+                                            <td>
+                                            {{(DB::table('users')->where('id', (int)($order->deliver ))->get('name'))[0]->name}}
+                                            <br>
+                                            Phone: {{(DB::table('users')->where('id', (int)($order->deliver ))->get('phone'))[0]->phone}}
+                                            </td>
                                             @else
                                             <td>Finding a deliver</td>
-                                            <td></td>
+                                            
                                             @endif
                                             
                                         </tr>
                                         <tr>
                                             <th scope="row">Customer</th>
-                                            <td>{{(DB::table('users')->where('id', (int)($order->customer ))->get('name'))[0]->name}}</td>
-                                            <td>Phone: {{(DB::table('users')->where('id', (int)($order->customer ))->get('phone'))[0]->phone}}</td>
+                                            <td>
+                                                {{(DB::table('users')->where('id', (int)($order->customer ))->get('name'))[0]->name}}
+                                                <br>
+                                                Phone: {{(DB::table('users')->where('id', (int)($order->customer ))->get('phone'))[0]->phone}}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Destination</th>
                                             <td>{{ $order->destination }}</td>
-                                            <td></td>
                                         </tr>
-
                                         <tr>
-                                            <th scope="row">Content</th>
+                                            <th scope="row">Content</th>                               
                                             <td>
                                                 @foreach($content as $dish)
                                                 {{ $dish['dishName'] }} : ${{ $dish['dishPrice'] }} x {{ $dish['quantity'] }}<br>
                                                 @endforeach
                                             </td>
-                                            <td></td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Total</th>
+                                            <td>${{ $order->bill }}</td>
+                                            
                                         </tr>
                                         <tr>
                                             <th scope="row">Status</th>
                                             <td>{{ $order->status }}</td>
-                                            <td></td>
+                                            
                                         </tr>
+                                        
                                         @if(Auth::user()->type=="Deliver")
                                         @if($order->status!="Done")    
                                         <tr>
