@@ -27,7 +27,7 @@
                             <td data-th="Name">{{ $store->name }}</td>
                             <td data-th="Address"> {{ $store->address }}</td>
                             <td data-th="Action">
-                                <input type ="button"  class="btn btn-primary" onclick="javascript:location.href='http://127.0.0.1:8000/menu/{{ $store->id }}'" value="Go"></input>
+                                <input type ="button"  class="btn btn-primary" onclick="javascript:location.href='./menu/{{ $store->id }}'" value="Go"></input>
                             </td>    
                         </tr>
                         @endif

@@ -113,6 +113,40 @@
                                         </tr>
                                         @endif
                                         @endif
+
+                                        @if(Auth::user()->type=="Customer")
+                                        @if($order->status=="Finding a deliver")    
+                                        <tr>
+                                        
+                                            
+                                            <th scope="row">Delete</th>
+                                            <td>
+                                                <form method="POST" action="{{ route('orderDelete') }}">
+                                                @csrf
+                                                
+                                                <input name="orderId" value="{{ $order->id }}" hidden="hidden">
+                                                
+                                                <button type="submit" class="btn btn-danger" >Delete Order</button>    
+                        
+                                                </form>
+                                            </td>
+                                            
+                                            
+                                        </tr>
+
+                                        <tr>
+                                        
+                                            
+                                            <th scope="row">Update</th>
+                                            <td>
+                                         
+                                                <input type ="button"  class="btn btn-success" onclick="javascript:location.href='/orderUpdateGet/{{ $order->id  }}'" value="Update Order"></input>
+                                            </td>
+                                            
+                                            
+                                        </tr>
+                                        @endif
+                                        @endif
                                    
                                     </tbody>
                             </table>

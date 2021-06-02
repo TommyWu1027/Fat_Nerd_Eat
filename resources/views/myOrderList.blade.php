@@ -31,7 +31,7 @@
                                         <td data-th="Store">{{(DB::table('stores')->where('id', (int)($myOrder->store ))->get('name'))[0]->name}}</td>
                                         <td data-th="Status">{{$myOrder->status}}</td>
                                         <td data-th="action">
-                                        <input type ="button"  class="btn btn-primary" onclick="javascript:location.href='http://127.0.0.1:8000/orderDetail/{{$myOrder->id}}'" value="Detail"></input>
+                                        <input type ="button"  class="btn btn-primary" onclick="javascript:location.href='./orderDetail/{{$myOrder->id}}'" value="Detail"></input>
                                         </td>    
                                         </tr>
                                         

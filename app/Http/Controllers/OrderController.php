@@ -20,6 +20,82 @@ class OrderController extends Controller
         //
     }
 
+    public function orderDelete(Request $request )
+    {
+        DB::table('orders')
+            ->where('id', (int)$request['orderId'])->delete();
+
+        return redirect()->route('myOrderList');
+    }
+
+    public function orderUpdatePost(Request $request )
+    {
+        $validator = Validator::make($request->all(), [
+            'total' => ['required', 'numeric', 'min:1'],
+        ]);
+        
+        // return $validator->errors();
+        if ($validator->fails()) {
+            return redirect()
+                        ->route('menu', [
+                            'storeid' => $request->get('storeid')
+                        ])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        // return $request;
+        $menu = DB::table('stores')->where('id', (int)($request->storeid))->get('dish');
+        // return $menu;
+        $menu_arr = json_decode($menu[0]->dish, true);
+        // return $menu_arr[1]["dishName"];
+        // return $menu_arr;
+        for($i = 0 ; $i < count($menu_arr) ; $i++){
+            $dish = str_replace(' ', '_', $menu_arr[$i]["dishName"]);
+            if($request[$dish] != NULL){
+                $content_arr[] = array('dishName' => $dish, 'dishPrice' => $menu_arr[$i]["dishPrice"], 'quantity' => $request[$dish]);
+            }
+        }
+
+        $content = json_encode($content_arr);
+        // return $content;
+        $customer_Id = DB::table('users')->where('id',(int)($request->id))->get('type_id');
+        $address = DB::table('customers')->where('id',$customer_Id[0]->type_id)->get('address');
+        $destination = $address[0]->address;
+
+        //$storeUserID = (DB::table('users')->where([['type','=','Customer'],['type_id','=',(int)($request['storeid']]]))->get('id'))[0]->id;
+        // return $destination;
+        $order = DB::table('orders')->where('id', (int)$request['orderId'])
+            ->update([
+            'store' =>  $request['storeid'],
+            'customer' => $request['id'],
+            'destination' => $request['destination'],
+            'content' => $content,
+            'bill' => $request['total'],
+            'status' => 'Finding a deliver',
+        ]);
+        return redirect()->route('myOrderList');
+    }
+
+    public function orderUpdateGet(Request $request )
+    {
+        $orderid = $request->route('orderid');
+        $storeId = (DB::table('orders')->where('id', $orderid)->get('store'))[0]->store;
+        $menu = DB::table('stores')->where('id', $storeId)->get('dish');
+        $json_arr = json_decode($menu[0]->dish, true);
+        $type_id = (DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id'))[0]->type_id;
+        $address = (DB::table('customers')->where('id', (int)( $type_id ))->get('address'))[0]->address;
+
+        //get order details
+        $order = DB::table('orders')->where('id', $orderid)->get();
+
+        //get order dish
+        $orderDish = DB::table('orders')->where('id', $orderid)->get('content');
+        $orderDish_json_arr = json_decode($orderDish[0]->content, true);
+        
+        return view('orderUpdate', ["menu" => $json_arr, "storeid" => $storeId,"address" => $address,"orderDetail"=>$order[0],"orderDish"=>$orderDish_json_arr,"orderid"=>$orderid]);
+    }
+
     public function myOrderList()
     {
         $type_id = (DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id'))[0]->type_id;

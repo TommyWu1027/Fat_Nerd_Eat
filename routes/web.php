@@ -56,7 +56,9 @@ Route::post('/orderReceive', 'DeliverController@orderReceive')->name('orderRecei
 // customer
 Route::get('/addcustomer', 'CustomerController@add_customer')->name('addcustomer');
 Route::post('/customerPost', 'CustomerController@customerPost')->name('customerPost');
-
+Route::post('/orderDelete', 'OrderController@orderDelete')->name('orderDelete');
+Route::get('/orderUpdateGet/{orderid}', 'OrderController@orderUpdateGet')->name('orderUpdateGet');
+Route::post('/orderUpdatePost', 'OrderController@orderUpdatePost')->name('orderUpdatePost');
 
 //======================================================================
 
