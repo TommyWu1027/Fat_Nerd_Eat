@@ -23,6 +23,15 @@ class StoreController extends Controller
         return view('storelist', ['storeInfo' => $storeInfo]);
     }
 
+   
+    public function storeinfoSearch(Request $request)
+    {
+        $storeInfo=DB::table('stores')->where('name',$request->category)->get();
+        // return $name;
+        
+        return view('storelist', ['storeInfo' => $storeInfo]);
+    }
+
     public function storeHome()
     {
         $storeId = DB::table('users')->where('id', (int)( Auth::user()->id ))->get('type_id');
@@ -39,11 +48,9 @@ class StoreController extends Controller
 
         DB::table('stores')
         ->where('id', $storeId[0]->type_id)
-        ->update(['name' => $request->storeName]);
+        ->update(['name' => $request->storeName,'address' => $request->address,'category' => $request->category]);
 
-        DB::table('stores')
-        ->where('id', $storeId[0]->type_id)
-        ->update(['address' => $request->address]);
+        
 
         //儲存上傳的圖片
 
@@ -135,7 +142,7 @@ class StoreController extends Controller
         $json_arr = json_decode($oldmenu[0]->dish, true);
         $i = 0;
         $if_repeat = false;
-        foreach ($json_arr as $key) {
+        foreach ((array)$json_arr as $key) {
             if ($key['dishName'] == $request->dishName) {
                 $json_arr[$i]['dishPrice'] = $request->dishPrice;
                 $if_repeat = true ; 

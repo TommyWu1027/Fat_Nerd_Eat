@@ -39,6 +39,7 @@ Route::post('/dishPost_delete', 'StoreController@dishPost_delete')->name('dishPo
 Route::get('/dish_delete', ['middleware' => 'auth', 'uses' => 'StoreController@dish_delete'])-> name('dish_delete');
 //// order menu
 Route::get('/storeinfo',  ['middleware' => 'auth', 'uses' => "StoreController@index"])-> name('storeinfo');
+Route::post('/storeinfoSearch',  ['middleware' => 'auth', 'uses' => "StoreController@storeinfoSearch"])-> name('storeinfoSearch');
 Route::get('/menu/{storeid}',  ['middleware' => 'auth', 'uses' => "StoreController@menu"])->name('menu');
 //// Mydish
 Route::get('/myDish',  ['middleware' => 'auth', 'uses' => "StoreController@myDish"])->name('myDish');;

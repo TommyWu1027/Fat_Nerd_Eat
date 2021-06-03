@@ -18,6 +18,7 @@ class CreateStoresTable extends Migration
             $table->string('name');
             $table->json('dish')->nullable();
             $table->string('address');
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }

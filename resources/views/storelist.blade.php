@@ -8,7 +8,27 @@
                 <div class="card-header">Store</div>
 
                 <div class="card-body">
+                
+                  
+                       
+                        <form method="POST" action="{{ route('storeinfoSearch') }}" style="margin:0px;display:inline">
+                            @csrf
+                        <div class="form-group row">
+                            
 
+                            <div class="col-xs-3">
+                                <input id="category" type="text" class="form-control " name="category"  placeholder="search">
+                            </div>
+                            <!-- <select for="category" class="form-select">
+                                <option value="StoreName">Store Name</option>
+                                <option value="StoreCategory">Store Category</option>
+                            </select>   -->
+                            <button for="category" style="margin-left: 5px;" class=" btn btn-primary">Search</button>
+                            
+                        </div>
+                        
+                        </form>
+                    
                     
                     <table class="rwd-table">
                         <thead>
