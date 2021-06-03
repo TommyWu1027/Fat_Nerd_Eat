@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
 
+
 class StoreController extends Controller
 {
     /**
@@ -26,19 +27,19 @@ class StoreController extends Controller
    
     public function storeinfoSearch(Request $request)
     {   
-        // $storeInfo = DB::table('stores')->where('name',$request->category)->get();
+        // $storeInfo = DB::table('stores')->where('name', 'LIKE', '%'.$request->category.'%')->get();
         // return $storeInfo;
         if($request->category == NULL){
             $storeInfo = DB::table('stores')->get();
             return view('storelist', ['storeInfo' => $storeInfo]);
         }
-        elseif((DB::table('stores')->where('name', $request->category)->get()) != '[]'){
-            $storeInfo = DB::table('stores')->where('name',$request->category)->get();
+        elseif((DB::table('stores')->where('name', 'LIKE', '%'.$request->category.'%')->get()) != '[]'){
+            $storeInfo = DB::table('stores')->where('name', 'LIKE', '%'.$request->category.'%')->get();
             // return $storeInfo;
             return view('storelist', ['storeInfo' => $storeInfo]);
         }
-        elseif((DB::table('stores')->where('category', $request->category)->get()) != '[]'){
-            $storeInfo = DB::table('stores')->where('category',$request->category)->get();
+        elseif((DB::table('stores')->where('category', 'LIKE', '%'.$request->category.'%')->get()) != '[]'){
+            $storeInfo = DB::table('stores')->where('category', 'LIKE', '%'.$request->category.'%')->get();
             // return $storeInfo;
             return view('storelist', ['storeInfo' => $storeInfo]);
         }
