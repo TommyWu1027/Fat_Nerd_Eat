@@ -15,7 +15,6 @@
                             @csrf
                         <div class="form-group row">
                             
-
                             <div class="col-xs-3">
                                 <input id="category" type="text" class="form-control " name="category"  placeholder="search">
                             </div>

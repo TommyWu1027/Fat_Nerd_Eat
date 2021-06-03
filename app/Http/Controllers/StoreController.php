@@ -25,11 +25,42 @@ class StoreController extends Controller
 
    
     public function storeinfoSearch(Request $request)
-    {
-        $storeInfo=DB::table('stores')->where('name',$request->category)->get();
-        // return $name;
-        
-        return view('storelist', ['storeInfo' => $storeInfo]);
+    {   
+        // $storeInfo = DB::table('stores')->where('name',$request->category)->get();
+        // return $storeInfo;
+        if($request->category == NULL){
+            $storeInfo = DB::table('stores')->get();
+            return view('storelist', ['storeInfo' => $storeInfo]);
+        }
+        elseif((DB::table('stores')->where('name', $request->category)->get()) != '[]'){
+            $storeInfo = DB::table('stores')->where('name',$request->category)->get();
+            // return $storeInfo;
+            return view('storelist', ['storeInfo' => $storeInfo]);
+        }
+        elseif((DB::table('stores')->where('category', $request->category)->get()) != '[]'){
+            $storeInfo = DB::table('stores')->where('category',$request->category)->get();
+            // return $storeInfo;
+            return view('storelist', ['storeInfo' => $storeInfo]);
+        }
+        else{
+            $storeInfo = [];
+            return view('storelist', ['storeInfo' => $storeInfo]);
+        }
+        // elseif((DB::table('stores')->where('category',$request->category)->get()) != NULL){
+
+        // }
+        // if($request->category != NULL){
+        //     if((DB::table('stores')->where('name',$request->category)->get()) != NULL){
+        //         $storeInfo = DB::table('stores')->where('name', $request->category)->get();
+        //     }else((DB::table('stores')->where('category',$request->category)->get()) != NULL){
+        //         $storeInfo = DB::table('stores')->where('category', $request->category)->get();
+        //     }
+        // }
+        // else{
+        //     $storeInfo = DB::table('stores')->get();
+        // }
+
+        // return view('storelist', ['storeInfo' => $storeInfo]);
     }
 
     public function storeHome()
